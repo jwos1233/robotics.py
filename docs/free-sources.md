@@ -44,13 +44,33 @@ themselves, so they remain untested rather than ruled out.
 |---|---|---|
 | `openapi.twse.com.tw` | Taiwan | **Reachable, keyless, working** |
 | `api.twelvedata.com` | multi-market | Reachable; demo key works for US only, needs a free key |
-| `api.jquants.com` | Japan (JPX official) | blocked by allowlist — untested |
-| `push2his.eastmoney.com` | China A / HK | blocked by allowlist — untested |
-| `hq.sinajs.cn` | China A | blocked by allowlist — untested |
-| `data.krx.co.kr` | Korea | blocked by allowlist — untested |
-| `www.hkex.com.hk` | Hong Kong | blocked by allowlist — untested |
-| `www.alphavantage.co`, `finnhub.io` | multi-market | blocked by allowlist — untested |
-| `data.sec.gov` | US filings | blocked by allowlist — untested |
+| `api.jquants.com` | Japan (JPX official) | **Free registration required** — 403 without auth. Best remaining lead |
+| `push2his.eastmoney.com` | China A / HK | **Returns real daily history keyless, then bans.** See below |
+| `www.alphavantage.co` | multi-market | Demo key works for US only; free key needed, and its daily request cap is far below a 143-ticker roster |
+| `finnhub.io` | multi-market | Free key required |
+| `data.krx.co.kr` | Korea | Reachable; needs a POST with internal `bld` parameters — fiddly, untested |
+
+### Eastmoney: works, then bans
+
+Eastmoney returned genuine daily OHLCV for Shenzhen (`0.002472`) and Shanghai
+STAR (`1.688017`) with no key — the only free source found that offers China
+A-share **history** rather than a snapshot. It then began dropping connections
+mid-burst, and after a 20-second pause was refusing every request including
+ones that had just succeeded.
+
+That is a throttle-then-ban, not a rate limit to pace around. Combined with it
+being an undocumented endpoint, it cannot back a daily pipeline. Defeating it
+would mean rotating IPs, which is not a dependency worth building.
+
+### Verdict on the per-exchange strategy
+
+**It does not close the equity layer.** Taiwan is the only market where a
+keyless exchange-native source works cleanly, and Taiwan alone prices no
+basket, because every basket it touches also holds names from other markets.
+
+The remaining realistic paths are a paid provider (EODHD or Twelve Data), or
+free registration with **J-Quants** — JPX's official API — which would add
+roughly thirty Japanese names and is the single highest-value free lead left.
 
 ## TWSE gives more than prices
 

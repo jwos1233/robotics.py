@@ -8,22 +8,36 @@ the US. Most free price APIs are US-only, which makes the price source the
 binding constraint on the entire equity feature -- not an implementation
 detail to settle later.
 
-Phase 0 could not evaluate Stooq, EODHD, Twelve Data or Tiingo for coverage,
-cost, rate limits or history depth, so no provider is wired in and no
-source_symbol is populated. Every security is seeded coverage_status
-='unavailable' and is excluded from basket pricing until a provider is
-confirmed for it. Guessing a provider's symbol format is how you silently
-price the wrong instrument.
+PHASE 0 FINDINGS SO FAR.
 
-One weak signal worth carrying forward: Stooq is documented as covering
-Poland, the US, Japan, Germany and Hungary with no official API, and is not
-documented for China, Taiwan or Korea. Consistent with the expectation that
-A-shares and smaller Japanese lines are where free sources fail.
+Stooq is NOT usable programmatically. Its CSV download endpoint returns an
+HTML page rather than CSV for every symbol tried -- US, Japan, Taiwan, Korea
+and China alike -- and then resets the connection outright under repeated
+requests. It rate-limits and blocks automated access, so it cannot back a
+daily pipeline regardless of its nominal coverage. Ruled out.
 
-FX: needs one source with full free daily history for JPY, CNY, HKD, TWD, KRW,
-EUR, SEK, CHF, GBP, NOK, AUD and CAD. Note that ECB reference rates do not
-cover every one of those, which is why the candidate must be checked against
-the full list rather than assumed.
+EODHD, Twelve Data and Tiingo remain unevaluated: each needs an account
+before coverage can be tested against the roster, and the question that
+matters is not "does it list an exchange" but "does it return this specific
+ticker". No provider is wired in and no source_symbol is populated. Every
+security stays coverage_status='unavailable' and is excluded from basket
+pricing until a provider is confirmed FOR THAT SECURITY.
+
+FX: RESOLVED, with one gap. The ECB daily reference rate series
+(data-api.ecb.europa.eu, SDMX, keyless) covers JPY, CNY, HKD, KRW, SEK, CHF,
+GBP, NOK, AUD, CAD and USD against EUR -- 11 of the 12 needed.
+
+  ** TWD IS NOT PUBLISHED BY THE ECB. **
+
+  Seven Taiwanese constituents depend on it -- 2049 TT, 2317 TT, 2308 TT,
+  2327 TT, 1101 TT, 4919 TT, 2382 TT -- spanning the Bearings, CNC Controls,
+  Contract Manufacture, Passives, High-Rate Cells and BMS baskets. Without a
+  second FX source for TWD those names cannot be converted to USD, and under
+  the basket rules they must then count as unpriced rather than be carried at
+  a stale or guessed rate.
+
+  Rates are quoted per EUR, so a USD conversion goes through the EUR/USD
+  cross rather than being read directly.
 
 BENCHMARK: ACWI. SPY must never be substituted -- a ~70% non-US board measured
 against a USD-only benchmark is a currency bet wearing a constraint costume.

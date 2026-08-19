@@ -106,8 +106,8 @@ opened. Findings below are **live-verified** unless marked otherwise.
 | 5 | JMTBA monthly breakdown | **VERIFIED.** Machine-type orders are a paid product; free monthly data gives NC grinding *production*. |
 | 6 | e-Stat / METI `statsDataId`s | not yet checked — needs `ESTAT_APP_ID` |
 | 7 | China NBS easyquery | not yet checked |
-| 8 | Equity price coverage | not yet checked |
-| 9 | FX to USD | not yet checked |
+| 8 | Equity price coverage | **Stooq ruled out** (blocks automated access). Others need accounts. |
+| 9 | FX to USD | **VERIFIED.** ECB keyless SDMX covers 11 of 12. **TWD not published.** |
 | 10 | ACWI / URTH benchmark | not yet checked |
 
 ### The two findings that change the design
@@ -128,6 +128,14 @@ the 受注確報 monthly package by email at JPY 20,000/year. What is free and
 monthly is NC grinding machine *production* from the 主要統計 PDF, which is a
 coincident read on output rather than a forward read on capacity being
 ordered, and there is no gear-cutting split in the free data at all.
+
+### The TWD gap
+
+ECB daily reference rates are keyless, have deep history, and cover every
+required currency except **TWD**. Seven Taiwanese constituents across six
+baskets depend on it. Until a second FX source covers TWD, those names count
+as unpriced rather than being carried at a guessed rate — which also drags
+those baskets' `constituents_priced` ratio down, visibly, by design.
 
 ### One trap worth naming
 

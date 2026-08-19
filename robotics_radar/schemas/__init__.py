@@ -20,6 +20,9 @@ from robotics_radar.models.enums import (
     FlowDirection,
     PurityGrade,
     ReturnWindow,
+    TripwireDirection,
+    TripwireMetric,
+    TripwireStatus,
 )
 
 
@@ -149,6 +152,40 @@ class BasketReturnOut(BaseModel):
     coverage_ratio: float | None = None
     interpretation: str
     caveat_note: str | None = None
+
+
+class TripwireOut(BaseModel):
+    """A falsifiable prediction, with its current verdict.
+
+    `status` is the recorded human judgement; `tripped` is the mechanical
+    evaluation against today's data. They are separate on purpose -- a
+    tripwire can be tripping without anyone yet having confirmed it, and
+    conflating the two would let the record be rewritten by the data.
+    """
+
+    id: int
+    node_id: int
+    node_name: str | None = None
+    statement: str
+    series_id: int | None = None
+    series_name: str | None = None
+    metric: TripwireMetric
+    direction: TripwireDirection | None = None
+    threshold: float | None = None
+    consecutive_periods: int
+    review_date: date | None = None
+    status: TripwireStatus
+    tripped: bool
+    observed_run: int = Field(description="Consecutive qualifying periods observed.")
+    latest_period: date | None = None
+    latest_value: float | None = None
+    distance_to_threshold: float | None = Field(
+        None, description="Signed toward the tripwire's direction; negative means short of it."
+    )
+    evaluable: bool = Field(
+        description="False when the tripwire lacks a series or threshold, i.e. is an opinion."
+    )
+    reason: str
 
 
 class OverlapPair(BaseModel):

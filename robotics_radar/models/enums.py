@@ -60,6 +60,20 @@ class Cadence(StrEnum):
     annual = "annual"
 
 
+class TripwireMetric(StrEnum):
+    """What a tripwire threshold is measured against.
+
+    An inflection is a change in rate, not a level, so a tripwire that can only
+    compare levels cannot express the question the board exists to answer.
+    `yoy_pct` is the workhorse: it is robust to the seasonality that makes
+    month-on-month readings noisy.
+    """
+
+    level = "level"
+    yoy_pct = "yoy_pct"
+    mom_pct = "mom_pct"
+
+
 class TripwireStatus(StrEnum):
     open = "open"
     confirmed = "confirmed"

@@ -32,6 +32,7 @@ from robotics_radar.models.enums import (
     EvidenceGrade,
     FlowDirection,
     TripwireDirection,
+    TripwireMetric,
     TripwireStatus,
 )
 
@@ -190,6 +191,10 @@ class Tripwire(Base, TimestampMixin):
     The point is to be gradeable later. A tripwire without an observable series
     and a threshold is an opinion, so both are required to move a tripwire off
     `open`.
+
+    This is the mechanism for answering "when does robotics inflect": a dated
+    statement, a named series, a metric, a threshold, and a run length -- all
+    committed in advance, so the answer cannot be rationalised after the fact.
     """
 
     __tablename__ = "tripwires"
@@ -205,7 +210,15 @@ class Tripwire(Base, TimestampMixin):
     direction: Mapped[TripwireDirection | None] = mapped_column(
         _pg_enum(TripwireDirection, "tripwire_direction"), nullable=True
     )
+    metric: Mapped[TripwireMetric] = mapped_column(
+        _pg_enum(TripwireMetric, "tripwire_metric"),
+        nullable=False,
+        default=TripwireMetric.yoy_pct,
+    )
     threshold: Mapped[float | None] = mapped_column(Numeric(24, 6), nullable=True)
+    #: Consecutive qualifying periods required before the tripwire trips. One
+    #: month clearing a threshold is noise; a run of them is a signal.
+    consecutive_periods: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     review_date: Mapped[date | None] = mapped_column(Date, nullable=True)
     status: Mapped[TripwireStatus] = mapped_column(
         _pg_enum(TripwireStatus, "tripwire_status"),

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-from robotics_radar.api.routes import baskets, health, nodes, series
+from robotics_radar.api.routes import baskets, health, nodes, series, tripwires
 from robotics_radar.config import get_settings
 from robotics_radar.logging import configure_logging
 
@@ -54,6 +54,7 @@ app.include_router(health.router)
 app.include_router(nodes.router)
 app.include_router(series.router)
 app.include_router(baskets.router)
+app.include_router(tripwires.router)
 
 
 @app.get("/", include_in_schema=False)

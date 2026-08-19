@@ -56,8 +56,13 @@ signal that divergence carries.
 
 from __future__ import annotations
 
+import calendar
+import csv
+import io
 from collections.abc import Iterable, Sequence
-from datetime import date
+from datetime import UTC, date, datetime
+
+import httpx
 
 from robotics_radar.ingest.base import (
     Fetcher,
@@ -80,31 +85,149 @@ METHODOLOGY = (
 )
 
 
+BASE_URL = "https://ec.europa.eu/eurostat/api/comext/dissemination/sdmx/2.1/data/DS-045409"
+CN_CODE = "84834030"
+REPORTER = "EU27_2020"
+FLOW_IMPORT = "1"
+
+VALUE_INDICATOR = "VALUE_IN_EUROS"
+QUANTITY_INDICATOR = "QUANTITY_IN_100KG"
+
+#: Extra-EU total: imports crossing the EU external border. This is the figure
+#: comparable in spirit to the US import series; intra-EU trade is EU members
+#: selling to each other and answers a different question.
+EXTRA_EU = "EXT_EU27_2020"
+INTRA_EU = "INT_EU27_2020"
+AGGREGATES = {EXTRA_EU, INTRA_EU}
+
+#: Eurostat pseudo-partners for unspecified or confidential origins. Real
+#: countries only, or the geography of the series is a fiction.
+_PSEUDO_PARTNER_PREFIX = "Q"
+
+TRACKED_PARTNERS = {
+    "JP": "Japan",
+    "CH": "Switzerland",
+    "TW": "Taiwan",
+    "CN": "China",
+    "US": "United States",
+    "KR": "South Korea",
+}
+
+AGGREGATE_SERIES = "EU imports, ball or roller screws (CN 8483.40.30), extra-EU total"
+
+
+def is_real_partner(code: str) -> bool:
+    """True for an individual reporting country, False for any aggregate."""
+    return (
+        len(code) == 2
+        and code not in AGGREGATES
+        and not code.startswith(_PSEUDO_PARTNER_PREFIX)
+    )
+
+
+def partner_series_name(partner: str) -> str:
+    return f"EU imports, ball or roller screws (CN 8483.40.30), from {partner}"
+
+
 class ComextImportsFetcher(Fetcher):
     source_name = "eurostat_comext_imports"
 
     def series_specs(self) -> Sequence[SeriesSpec]:
-        return [
-            SeriesSpec(
-                name="EU imports, ball or roller screws (CN 8483.40.30), all partners",
-                node_name="Linear Actuation & Roller Screws",
-                source=self.source_name,
-                cadence=Cadence.monthly,
-                flow_direction=FlowDirection.import_,
-                geography="EU",
-                partner_geography=None,
-                tariff_code="84834030",
-                tariff_nomenclature="CN8",
-                methodology_note=METHODOLOGY,
-                known_limitations=KNOWN_LIMITATIONS,
-            )
+        common = {
+            "node_name": "Linear Actuation & Roller Screws",
+            "source": self.source_name,
+            "cadence": Cadence.monthly,
+            "flow_direction": FlowDirection.import_,
+            "geography": "EU",
+            "tariff_code": CN_CODE,
+            "tariff_nomenclature": "CN8",
+            "source_url": BASE_URL,
+            "unit": "EUR",
+            "methodology_note": METHODOLOGY,
+            "known_limitations": KNOWN_LIMITATIONS,
+        }
+        specs = [SeriesSpec(name=AGGREGATE_SERIES, partner_geography=None, **common)]
+        specs += [
+            SeriesSpec(name=partner_series_name(name), partner_geography=name, **common)
+            for name in TRACKED_PARTNERS.values()
         ]
+        return specs
 
     def fetch(self, period: date) -> Iterable[RawResponse]:
-        raise IngestError(
-            "eurostat_comext_imports: not implemented. Endpoint, request shape "
-            "and indicator set are verified; parser not yet written."
-        )
+        # One request per period, wildcarding partner and indicator. Comext
+        # refuses unfiltered extractions with a 413 naming the row count, so
+        # the product/reporter/flow filter is not optional.
+        month = f"{period.year:04d}-{period.month:02d}"
+        key = f"M.{REPORTER}..{CN_CODE}.{FLOW_IMPORT}."
+        params = {"startPeriod": month, "endPeriod": month, "format": "SDMX-CSV"}
+        url = f"{BASE_URL}/{key}"
+
+        fetched_at = datetime.now(UTC)
+        response = httpx.get(url, params=params, timeout=120.0, follow_redirects=True)
+        if response.status_code != 200:
+            raise IngestError(
+                f"eurostat_comext_imports: HTTP {response.status_code} for {month}"
+            )
+        body = response.text
+        if not body.lstrip().startswith("DATAFLOW"):
+            raise IngestError(
+                f"eurostat_comext_imports: expected SDMX-CSV, got {body[:120]!r}"
+            )
+        yield RawResponse(url=url, params=params, body=body, fetched_at=fetched_at)
 
     def normalise(self, raw: RawResponse) -> Iterable[NormalisedObservation]:
-        raise IngestError("eurostat_comext_imports: parser awaits a real payload.")
+        rows = list(csv.DictReader(io.StringIO(raw.body)))
+        if not rows:
+            raise IngestError("eurostat_comext_imports: empty CSV")
+
+        # Pivot the indicators dimension: value and quantity arrive as separate
+        # rows for the same partner and period.
+        by_partner: dict[str, dict[str, float]] = {}
+        for row in rows:
+            partner = row["partner"]
+            try:
+                obs = float(row["OBS_VALUE"])
+            except (TypeError, ValueError):
+                continue
+            by_partner.setdefault(partner, {})[row["indicators"]] = obs
+
+        period_start, period_end = _period_bounds(raw.params["startPeriod"])
+        vintage = raw.fetched_at.date()
+        emitted = 0
+
+        for partner, values in by_partner.items():
+            if partner in AGGREGATES:
+                series_key = AGGREGATE_SERIES if partner == EXTRA_EU else None
+            elif is_real_partner(partner) and partner in TRACKED_PARTNERS:
+                series_key = partner_series_name(TRACKED_PARTNERS[partner])
+            else:
+                series_key = None
+            if series_key is None:
+                continue
+
+            value = values.get(VALUE_INDICATOR)
+            hundred_kg = values.get(QUANTITY_INDICATOR)
+            # Comext reports quantity in units of 100kg. Converting to plain
+            # kilograms is lossless and makes unit_value read directly as
+            # EUR/kg -- which is all this line can ever yield, since CN
+            # 8483.40.30 carries no supplementary piece count.
+            quantity = hundred_kg * 100 if hundred_kg is not None else None
+
+            emitted += 1
+            yield NormalisedObservation(
+                series_key=series_key,
+                period_start=period_start,
+                period_end=period_end,
+                vintage_date=vintage,
+                value=value,
+                quantity=quantity,
+                quantity_unit="KG",
+            )
+
+        if not emitted:
+            raise IngestError("eurostat_comext_imports: no tracked partners in response")
+
+
+def _period_bounds(month: str) -> tuple[date, date]:
+    year, mon = (int(part) for part in month.split("-"))
+    return date(year, mon, 1), date(year, mon, calendar.monthrange(year, mon)[1])

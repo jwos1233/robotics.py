@@ -4,7 +4,7 @@ Two services share this repo:
 
 | Service | Start command |
 |---|---|
-| `web` | `python -m robotics_radar.preflight && alembic upgrade head && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT` |
+| `web` | `python -m robotics_radar.preflight && alembic upgrade head && python -m robotics_radar.seeds.load && python -m robotics_radar.scheduler.run register && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT` |
 | `scheduler` | one cron job per source, commands below |
 
 ## Required variables (do this first)

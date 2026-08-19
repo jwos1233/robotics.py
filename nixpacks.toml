@@ -12,4 +12,4 @@ cmds = [
 ]
 
 [start]
-cmd = "python -m robotics_radar.preflight && alembic upgrade head && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT"
+cmd = "python -m robotics_radar.preflight && alembic upgrade head && python -m robotics_radar.seeds.load && python -m robotics_radar.scheduler.run register && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT"

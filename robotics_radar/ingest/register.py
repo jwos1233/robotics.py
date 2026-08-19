@@ -67,11 +67,12 @@ def register_all(session: Session) -> int:
 
 
 def main() -> None:
-    from robotics_radar.db import session_scope
+    from robotics_radar.db import acquire_bootstrap_lock, session_scope
     from robotics_radar.logging import configure_logging
 
     configure_logging()
     with session_scope() as session:
+        acquire_bootstrap_lock(session)
         total = register_all(session)
         log.info("register_complete", series=total)
 

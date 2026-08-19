@@ -62,6 +62,9 @@ Read-only JSON. OpenAPI at `/openapi.json`, docs at `/docs`.
 | `GET /baskets/overlap` | shared-membership matrix |
 | `GET /health` | Railway health check; reports database reachability |
 
+`GET /` returns a small index (`name`, `docs`, `openapi`) — that is the whole
+response, not a truncated page. There is no frontend yet. Start at `/docs`.
+
 ### Deliberately absent
 
 These are omissions, not gaps:
@@ -178,9 +181,14 @@ are NULL everywhere by design. The following still need a human check:
 
 ## Deployment
 
-Railway, two services from one repo. `web` runs preflight, then migrations,
-then uvicorn with the health check on `/health`; `scheduler` runs one cron job
-per source. Schedules and their (provisional) release-lag assumptions are in
+Railway, two services from one repo. `web` runs preflight, migrations, the
+seed, series registration, then uvicorn with the health check on `/health`;
+`scheduler` runs one cron job per source.
+
+Seeding runs on every boot rather than as a one-off step, so the deployed
+reference data always matches the repo. It is idempotent and guarded by a
+Postgres advisory lock, so overlapping boots across replicas cannot
+double-write. Schedules and their (provisional) release-lag assumptions are in
 `deploy/cron.md`. Logging is structured JSON to stdout.
 
 ### `DATABASE_URL` must be set on every service

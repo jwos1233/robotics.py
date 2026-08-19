@@ -134,11 +134,12 @@ def seed_all(session: Session) -> dict[str, int]:
 
 
 def main() -> None:
-    from robotics_radar.db import session_scope
+    from robotics_radar.db import acquire_bootstrap_lock, session_scope
     from robotics_radar.logging import configure_logging
 
     configure_logging()
     with session_scope() as session:
+        acquire_bootstrap_lock(session)
         seed_all(session)
 
 

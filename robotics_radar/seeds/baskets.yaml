@@ -1,0 +1,209 @@
+# Equity baskets mapped to constraint nodes.
+#
+# purity_grade is a first-class field, not decoration. Almost no listed name
+# derives more than low single-digit revenue from humanoids, and a NARRATIVE
+# basket moving is sentiment rather than constraint. The API is required to
+# keep those readings distinguishable.
+
+- name: Precision Reducers
+  node: Precision Reducers
+  bucket: actuation
+  constraint_label: harmonic & cycloidal capacity
+  purity_grade: mixed
+  members: ["6324 JP", "6268 JP", "6302 JP", "688017 CH", "002896 CH", "002472 CH"]
+
+- name: Linear Actuation & Roller Screws
+  node: Linear Actuation & Roller Screws
+  bucket: actuation
+  constraint_label: thread-grinding capacity
+  purity_grade: narrative
+  caveat_note: >-
+    Deepest constraint on the board, weakest listed expression. Rollvis and GSA
+    are private. Treat any move here as sentiment until a listed pure play
+    exists.
+  members: ["601100 CH", "603009 CH", "300100 CH", "605133 CH", "6481 JP", "SHA0 GY"]
+
+- name: Motors & Actuator Modules
+  node: Motors & Actuator Modules
+  bucket: actuation
+  constraint_label: frameless torque motor supply
+  purity_grade: mixed
+  members: ["6516 JP", "6594 JP", "RRX", "ALNT", "MOG/A", "003021 CH", "300124 CH", "002979 CH"]
+
+- name: Bearings & Linear Motion
+  node: Bearings & Linear Motion
+  bucket: actuation
+  constraint_label: cross-roller / thin-section capacity
+  purity_grade: mixed
+  members: ["6481 JP", "6471 JP", "6480 JP", "SHA0 GY", "2049 TT", "TKR", "RBC"]
+
+- name: Grinding & Gear Machines
+  node: Grinding & Gear Machines
+  bucket: precision_mfg
+  constraint_label: capacity to expand actuation
+  purity_grade: mixed
+  caveat_note: >-
+    Reishauer, Kapp Niles, Gleason and Studer are private, so the
+    highest-signal names are untradeable. Track the constraint via order intake
+    in the listed cohort rather than via this basket's price.
+  members: ["6474 JP", "6101 JP", "6473 JP", "6141 GY", "6103 JP", "6135 JP"]
+
+- name: CNC Controls & Servo
+  node: CNC Controls & Servo
+  bucket: precision_mfg
+  constraint_label: servo drive supply
+  purity_grade: mixed
+  members: ["6954 JP", "6506 JP", "SIE GY", "6503 JP", "300124 CH", "ROK", "2308 TT"]
+
+- name: Metrology & Calibration
+  node: Metrology & Calibration
+  bucket: precision_mfg
+  constraint_label: actuator test capacity
+  purity_grade: mixed
+  members: ["RSW LN", "HEXA-B SS", "6861 JP", "NOVT", "AME", "SXS LN"]
+
+- name: Abrasives & Superhard Tooling
+  node: Abrasives & Superhard Tooling
+  bucket: precision_mfg
+  constraint_label: CBN wheel supply
+  purity_grade: narrative
+  members: ["5331 JP", "SGO FP", "MMM", "KMT", "SAND SS"]
+
+- name: Rare Earth Magnets
+  node: Rare Earth Magnets
+  bucket: materials
+  constraint_label: NdFeB + Dy/Tb licensing
+  purity_grade: pure
+  caveat_note: >-
+    Scores on policy, not capacity. Behaves as a political basket: export
+    licence announcements move it far more than magnet output does.
+  members: ["300748 CH", "600366 CH", "000970 CH", "6762 JP", "4063 JP", "MP", "LYC AU", "NEO CN", "USAR"]
+
+- name: Electrical Steel & Laminations
+  node: Electrical Steel & Laminations
+  bucket: materials
+  constraint_label: thin-gauge NOES
+  purity_grade: narrative
+  members: ["5401 JP", "5411 JP", "005490 KS", "600019 CH", "CLF", "APAM NA"]
+
+- name: Bearing Steel & Structural
+  node: Bearing Steel & Structural
+  bucket: materials
+  constraint_label: clean-steel qualification
+  purity_grade: narrative
+  members: ["5481 JP", "5471 JP", "CRS", "ATI", "3402 JP", "VCT LN"]
+
+- name: Encoders & Position
+  node: Encoders & Position
+  bucket: sensing
+  constraint_label: high-res absolute encoder cost
+  purity_grade: mixed
+  caveat_note: Heidenhain is private and is the reference name for this constraint.
+  members: ["RSW LN", "6594 JP", "AVGO", "ST", "MELE BB", "ALGM"]
+
+- name: Force, Torque & Tactile
+  node: Force, Torque & Tactile
+  bucket: sensing
+  constraint_label: F/T sensor supply
+  purity_grade: mixed
+  caveat_note: >-
+    Kistler and Bota are private. Tactile sensing has no listed exposure at
+    all, so this basket reads force/torque only.
+  members: ["NOVT", "SXS LN", "TEL", "6479 JP"]
+
+- name: Vision & Depth
+  node: Vision & Depth
+  bucket: sensing
+  constraint_label: depth sensing cost
+  purity_grade: mixed
+  members: ["6758 JP", "603501 CH", "CGNX", "TDY", "AMS SW", "LITE", "COHR"]
+
+- name: Lidar & 3D
+  node: Lidar & 3D
+  bucket: sensing
+  constraint_label: solid-state lidar cost
+  purity_grade: pure
+  caveat_note: >-
+    High beta. Moves on sector sentiment more than on this constraint, so a
+    large move here is weak evidence about lidar cost.
+  members: ["HSAI", "2498 HK", "OUST", "INVZ", "LAZR"]
+
+- name: Inertial
+  node: Inertial
+  bucket: sensing
+  constraint_label: IMU supply
+  purity_grade: narrative
+  members: ["6762 JP", "ADI", "STM", "HON", "SAF FP", "6503 JP"]
+
+- name: Edge Inference Silicon
+  node: Edge Inference Silicon
+  bucket: compute_power
+  constraint_label: onboard compute
+  purity_grade: mixed
+  is_shared_node: true
+  members: ["NVDA", "QCOM", "9660 HK", "AMBA", "2533 HK", "6723 JP", "NXPI"]
+
+- name: Motor Drivers & Power Discretes
+  node: Motor Drivers & Power Discretes
+  bucket: compute_power
+  constraint_label: GaN/SiC + gate driver supply
+  purity_grade: mixed
+  members: ["IFX GY", "ON", "6963 JP", "TXN", "ADI", "STM", "NVTS", "POWI"]
+
+- name: Passives & Interconnect
+  node: Passives & Interconnect
+  bucket: compute_power
+  constraint_label: MLCC + high-flex cable
+  purity_grade: mixed
+  is_shared_node: true
+  members: ["6981 JP", "6762 JP", "2327 TT", "6976 JP", "6806 JP", "6807 JP", "APH", "5802 JP"]
+
+- name: High-Rate Cells
+  node: High-Rate Cells
+  bucket: energy
+  constraint_label: 5-10C discharge capacity
+  purity_grade: mixed
+  members: ["006400 KS", "373220 KS", "300014 CH", "1101 TT", "300750 CH", "300207 CH"]
+
+- name: BMS & Power Conversion
+  node: BMS & Power Conversion
+  bucket: energy
+  constraint_label: pack integration
+  purity_grade: narrative
+  members: ["TXN", "ADI", "MPWR", "VICR", "IFX GY", "4919 TT"]
+
+- name: Contract Manufacture
+  node: Contract Manufacture
+  bucket: assembly
+  constraint_label: mechatronic assembly capacity
+  purity_grade: mixed
+  members: ["2317 TT", "2382 TT", "JBL", "FLEX", "CLS", "285 HK", "002475 CH"]
+
+- name: Automation & Line Equipment
+  node: Automation & Line Equipment
+  bucket: assembly
+  constraint_label: line build-out
+  purity_grade: mixed
+  members: ["6954 JP", "6506 JP", "ABBN SW", "002747 CH", "ROK", "ATCO-A SS", "6383 JP"]
+
+# Demand side. Not constraints -- these exist to read whether tightness is
+# demand-led. bucket is null: a demand basket does not sit in a constraint
+# bucket.
+- name: Humanoid OEM
+  node: Humanoid OEM Demand
+  bucket: null
+  constraint_label: demand signal
+  purity_grade: narrative
+  is_demand_side: true
+  caveat_note: >-
+    Figure, Agility, Apptronik, Fourier and Unitree are all private. The listed
+    proxies derive a negligible share of revenue from humanoids.
+  members: ["TSLA", "9880 HK", "1810 HK", "9868 HK", "005380 KS", "002472 CH"]
+
+- name: Mobile Manipulation & AMR
+  node: Mobile Manipulation Demand
+  bucket: null
+  constraint_label: demand signal
+  purity_grade: pure
+  is_demand_side: true
+  members: ["SYM", "ZBRA", "AUTO NO", "KION GY", "6383 JP", "TER", "OCDO LN", "GXO"]

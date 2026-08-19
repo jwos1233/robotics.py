@@ -1,0 +1,117 @@
+# Constraint nodes.
+#
+# severity and break_point_tier are absent from every entry by design. The
+# scoring methodology is unsettled and fabricated numbers would poison the
+# store, so those columns stay NULL until a defensible method exists.
+#
+# evidence_grade is likewise left unset at the node level: a node's grade is a
+# roll-up of its series, and no series carry observations yet.
+
+- name: Precision Reducers
+  bucket: actuation
+  methodology_note: >-
+    Harmonic and cycloidal reducer capacity. The cycloidal side may become
+    directly measurable if the TARIC robot-arm gear-set provision turns out to
+    carry queryable trade volume; that remains unverified.
+
+- name: Linear Actuation & Roller Screws
+  bucket: actuation
+  methodology_note: >-
+    Planetary and recirculating roller screws. Measured on the import side
+    because the resolving tariff lines (US HTS 8483.40.8000, EU CN 8483.40.30)
+    are destination-side. HS6 8483.40 is a blended bucket of gears, screws,
+    gearboxes and torque converters and is unusable for this purpose.
+
+- name: Motors & Actuator Modules
+  bucket: actuation
+
+- name: Bearings & Linear Motion
+  bucket: actuation
+  methodology_note: >-
+    Cross-roller and thin-section bearing capacity, plus profile rail.
+
+- name: Dexterous Hands
+  bucket: actuation
+  methodology_note: >-
+    No listed pure play exists. Maxon, Faulhaber and Portescap are private, so
+    this node carries no basket and renders as a watchlist entry. Deliberately
+    empty, not unpopulated.
+
+- name: Grinding & Gear Machines
+  bucket: precision_mfg
+  methodology_note: >-
+    Reads capacity expansion one layer below the visible constraint. Grinding
+    and gear-cutting machine orders gate roller screw and reducer output, so
+    order intake here leads actuation capacity. Load-bearing for the cascade
+    argument.
+
+- name: CNC Controls & Servo
+  bucket: precision_mfg
+
+- name: Metrology & Calibration
+  bucket: precision_mfg
+
+- name: Abrasives & Superhard Tooling
+  bucket: precision_mfg
+
+- name: Rare Earth Magnets
+  bucket: materials
+  methodology_note: >-
+    NdFeB supply plus dysprosium/terbium licensing. Moves on export-licence
+    policy rather than on installed capacity; read it as a policy series.
+
+- name: Electrical Steel & Laminations
+  bucket: materials
+
+- name: Bearing Steel & Structural
+  bucket: materials
+
+- name: Encoders & Position
+  bucket: sensing
+
+- name: Force, Torque & Tactile
+  bucket: sensing
+
+- name: Vision & Depth
+  bucket: sensing
+
+- name: Lidar & 3D
+  bucket: sensing
+
+- name: Inertial
+  bucket: sensing
+
+- name: Edge Inference Silicon
+  bucket: compute_power
+
+- name: Motor Drivers & Power Discretes
+  bucket: compute_power
+
+- name: Passives & Interconnect
+  bucket: compute_power
+
+- name: High-Rate Cells
+  bucket: energy
+  methodology_note: >-
+    5-10C sustained discharge. The constraint is cell chemistry and format
+    qualified for high continuous rate, not pack-level energy capacity.
+
+- name: BMS & Power Conversion
+  bucket: energy
+
+- name: Contract Manufacture
+  bucket: assembly
+
+- name: Automation & Line Equipment
+  bucket: assembly
+
+- name: Humanoid OEM Demand
+  bucket: assembly
+  methodology_note: >-
+    Demand-side reference node, not a constraint. Exists so the demand basket
+    has something to link to and so tightness can be read as demand-led or not.
+
+- name: Mobile Manipulation Demand
+  bucket: assembly
+  methodology_note: >-
+    Demand-side reference node, not a constraint.

@@ -1,0 +1,1430 @@
+- display_ticker: 6324 JP
+  local_code: '6324'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Harmonic Drive Systems Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6268 JP
+  local_code: '6268'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Nabtesco Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6302 JP
+  local_code: '6302'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Sumitomo Heavy Industries Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 688017 CH
+  local_code: '688017'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Leader Harmonious Drive Systems Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 002896 CH
+  local_code: 002896
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Zhongda Leader Intelligent Transmission Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 002472 CH
+  local_code: '002472'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Zhejiang Shuanghuan Driveline Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 601100 CH
+  local_code: '601100'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Jiangsu Hengli Hydraulic Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 603009 CH
+  local_code: '603009'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Shanghai Beite Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300100 CH
+  local_code: '300100'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Shuangyi Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 605133 CH
+  local_code: '605133'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Zhejiang Rongtai Technical Enterprise Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6481 JP
+  local_code: '6481'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: THK Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SHA0 GY
+  local_code: SHA0
+  exchange_mic: XETR
+  currency: EUR
+  country: DE
+  name: Schaeffler AG
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6516 JP
+  local_code: '6516'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Sanyo Denki Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6594 JP
+  local_code: '6594'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Nidec Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: RRX
+  local_code: RRX
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Regal Rexnord Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ALNT
+  local_code: ALNT
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Allient Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: MOG/A
+  local_code: MOG/A
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Moog Inc Class A
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 003021 CH
+  local_code: '003021'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Shenzhen Zhaowei Machinery & Electronics Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300124 CH
+  local_code: '300124'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Shenzhen Inovance Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 002979 CH
+  local_code: 002979
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Leadshine Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6471 JP
+  local_code: '6471'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: NSK Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6480 JP
+  local_code: '6480'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Nippon Thompson Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2049 TT
+  local_code: '2049'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Hiwin Technologies Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TKR
+  local_code: TKR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Timken Co
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: RBC
+  local_code: RBC
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: RBC Bearings Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6474 JP
+  local_code: '6474'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Nachi-Fujikoshi Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6101 JP
+  local_code: '6101'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Tsugami Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6473 JP
+  local_code: '6473'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: JTEKT Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6141 GY
+  local_code: '6141'
+  exchange_mic: XETR
+  currency: EUR
+  country: DE
+  name: 'DMG Mori (seed anomaly: 6141 is a Tokyo local code, suffix says Germany)'
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6103 JP
+  local_code: '6103'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Okuma Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6135 JP
+  local_code: '6135'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Makino Milling Machine Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6954 JP
+  local_code: '6954'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Fanuc Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6506 JP
+  local_code: '6506'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Yaskawa Electric Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SIE GY
+  local_code: SIE
+  exchange_mic: XETR
+  currency: EUR
+  country: DE
+  name: Siemens AG
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6503 JP
+  local_code: '6503'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Mitsubishi Electric Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ROK
+  local_code: ROK
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Rockwell Automation Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2308 TT
+  local_code: '2308'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Delta Electronics Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: RSW LN
+  local_code: RSW
+  exchange_mic: XLON
+  currency: GBP
+  country: GB
+  name: Renishaw PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: HEXA-B SS
+  local_code: HEXA-B
+  exchange_mic: XSTO
+  currency: SEK
+  country: SE
+  name: Hexagon AB Class B
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6861 JP
+  local_code: '6861'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Keyence Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: NOVT
+  local_code: NOVT
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Novanta Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: AME
+  local_code: AME
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Ametek Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SXS LN
+  local_code: SXS
+  exchange_mic: XLON
+  currency: GBP
+  country: GB
+  name: Spectris PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5331 JP
+  local_code: '5331'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Noritake Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SGO FP
+  local_code: SGO
+  exchange_mic: XPAR
+  currency: EUR
+  country: FR
+  name: Compagnie de Saint-Gobain SA
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: MMM
+  local_code: MMM
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: 3M Co
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: KMT
+  local_code: KMT
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Kennametal Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SAND SS
+  local_code: SAND
+  exchange_mic: XSTO
+  currency: SEK
+  country: SE
+  name: Sandvik AB
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300748 CH
+  local_code: '300748'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: JL Mag Rare-Earth Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 600366 CH
+  local_code: '600366'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Ningbo Yunsheng Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 000970 CH
+  local_code: 000970
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Zhong Ke San Huan High-Tech Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6762 JP
+  local_code: '6762'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: TDK Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 4063 JP
+  local_code: '4063'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Shin-Etsu Chemical Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: MP
+  local_code: MP
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: MP Materials Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: LYC AU
+  local_code: LYC
+  exchange_mic: XASX
+  currency: AUD
+  country: AU
+  name: Lynas Rare Earths Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: NEO CN
+  local_code: NEO
+  exchange_mic: XTSE
+  currency: CAD
+  country: CA
+  name: Neo Performance Materials Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: USAR
+  local_code: USAR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: USA Rare Earth Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5401 JP
+  local_code: '5401'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Nippon Steel Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5411 JP
+  local_code: '5411'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: JFE Holdings Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 005490 KS
+  local_code: 005490
+  exchange_mic: XKRX
+  currency: KRW
+  country: KR
+  name: POSCO Holdings Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 600019 CH
+  local_code: '600019'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Baoshan Iron & Steel Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: CLF
+  local_code: CLF
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Cleveland-Cliffs Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: APAM NA
+  local_code: APAM
+  exchange_mic: XAMS
+  currency: EUR
+  country: NL
+  name: Aperam SA
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5481 JP
+  local_code: '5481'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Sanyo Special Steel Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5471 JP
+  local_code: '5471'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Daido Steel Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: CRS
+  local_code: CRS
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Carpenter Technology Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ATI
+  local_code: ATI
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: ATI Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 3402 JP
+  local_code: '3402'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Toray Industries Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: VCT LN
+  local_code: VCT
+  exchange_mic: XLON
+  currency: GBP
+  country: GB
+  name: Victrex PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: AVGO
+  local_code: AVGO
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Broadcom Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ST
+  local_code: ST
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Sensata Technologies Holding PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: MELE BB
+  local_code: MELE
+  exchange_mic: XBRU
+  currency: EUR
+  country: BE
+  name: Melexis NV
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ALGM
+  local_code: ALGM
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Allegro MicroSystems Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TEL
+  local_code: TEL
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: TE Connectivity PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6479 JP
+  local_code: '6479'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Minebea Mitsumi Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6758 JP
+  local_code: '6758'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Sony Group Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 603501 CH
+  local_code: '603501'
+  exchange_mic: XSHG
+  currency: CNY
+  country: CN
+  name: Will Semiconductor Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: CGNX
+  local_code: CGNX
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Cognex Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TDY
+  local_code: TDY
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Teledyne Technologies Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: AMS SW
+  local_code: AMS
+  exchange_mic: XSWX
+  currency: CHF
+  country: CH
+  name: ams-OSRAM AG
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: LITE
+  local_code: LITE
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Lumentum Holdings Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: COHR
+  local_code: COHR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Coherent Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: HSAI
+  local_code: HSAI
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Hesai Group
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2498 HK
+  local_code: '2498'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: RoboSense Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: OUST
+  local_code: OUST
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Ouster Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: INVZ
+  local_code: INVZ
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Innoviz Technologies Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: LAZR
+  local_code: LAZR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Luminar Technologies Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ADI
+  local_code: ADI
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Analog Devices Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: STM
+  local_code: STM
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: STMicroelectronics NV
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: HON
+  local_code: HON
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Honeywell International Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SAF FP
+  local_code: SAF
+  exchange_mic: XPAR
+  currency: EUR
+  country: FR
+  name: Safran SA
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: NVDA
+  local_code: NVDA
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: NVIDIA Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: QCOM
+  local_code: QCOM
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Qualcomm Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 9660 HK
+  local_code: '9660'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: Horizon Robotics
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: AMBA
+  local_code: AMBA
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Ambarella Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2533 HK
+  local_code: '2533'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: Black Sesame International Holding Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6723 JP
+  local_code: '6723'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Renesas Electronics Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: NXPI
+  local_code: NXPI
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: NXP Semiconductors NV
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: IFX GY
+  local_code: IFX
+  exchange_mic: XETR
+  currency: EUR
+  country: DE
+  name: Infineon Technologies AG
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 'ON'
+  local_code: 'ON'
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: ON Semiconductor Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6963 JP
+  local_code: '6963'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Rohm Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TXN
+  local_code: TXN
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Texas Instruments Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: NVTS
+  local_code: NVTS
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Navitas Semiconductor Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: POWI
+  local_code: POWI
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Power Integrations Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6981 JP
+  local_code: '6981'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Murata Manufacturing Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2327 TT
+  local_code: '2327'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Yageo Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6976 JP
+  local_code: '6976'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Taiyo Yuden Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6806 JP
+  local_code: '6806'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Hirose Electric Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6807 JP
+  local_code: '6807'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Japan Aviation Electronics Industry Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: APH
+  local_code: APH
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Amphenol Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 5802 JP
+  local_code: '5802'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Sumitomo Electric Industries Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 006400 KS
+  local_code: '006400'
+  exchange_mic: XKRX
+  currency: KRW
+  country: KR
+  name: Samsung SDI Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 373220 KS
+  local_code: '373220'
+  exchange_mic: XKRX
+  currency: KRW
+  country: KR
+  name: LG Energy Solution Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300014 CH
+  local_code: '300014'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: EVE Energy Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 1101 TT
+  local_code: '1101'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Taiwan Cement Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300750 CH
+  local_code: '300750'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Contemporary Amperex Technology Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 300207 CH
+  local_code: '300207'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Sunwoda Electronic Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: MPWR
+  local_code: MPWR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Monolithic Power Systems Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: VICR
+  local_code: VICR
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Vicor Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 4919 TT
+  local_code: '4919'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Nuvoton Technology Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2317 TT
+  local_code: '2317'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Hon Hai Precision Industry Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 2382 TT
+  local_code: '2382'
+  exchange_mic: XTAI
+  currency: TWD
+  country: TW
+  name: Quanta Computer Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: JBL
+  local_code: JBL
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Jabil Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: FLEX
+  local_code: FLEX
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Flex Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: CLS
+  local_code: CLS
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Celestica Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 285 HK
+  local_code: '285'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: BYD Electronic (International) Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 002475 CH
+  local_code: '002475'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Luxshare Precision Industry Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ABBN SW
+  local_code: ABBN
+  exchange_mic: XSWX
+  currency: CHF
+  country: CH
+  name: ABB Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 002747 CH
+  local_code: '002747'
+  exchange_mic: XSHE
+  currency: CNY
+  country: CN
+  name: Estun Automation Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ATCO-A SS
+  local_code: ATCO-A
+  exchange_mic: XSTO
+  currency: SEK
+  country: SE
+  name: Atlas Copco AB Class A
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 6383 JP
+  local_code: '6383'
+  exchange_mic: XTKS
+  currency: JPY
+  country: JP
+  name: Daifuku Co Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TSLA
+  local_code: TSLA
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Tesla Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 9880 HK
+  local_code: '9880'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: UBTech Robotics Corp Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 1810 HK
+  local_code: '1810'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: Xiaomi Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 9868 HK
+  local_code: '9868'
+  exchange_mic: XHKG
+  currency: HKD
+  country: HK
+  name: XPeng Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: 005380 KS
+  local_code: 005380
+  exchange_mic: XKRX
+  currency: KRW
+  country: KR
+  name: Hyundai Motor Co
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: SYM
+  local_code: SYM
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Symbotic Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: ZBRA
+  local_code: ZBRA
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Zebra Technologies Corp
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: AUTO NO
+  local_code: AUTO
+  exchange_mic: XOSL
+  currency: NOK
+  country: 'NO'
+  name: AutoStore Holdings Ltd
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: KION GY
+  local_code: KION
+  exchange_mic: XETR
+  currency: EUR
+  country: DE
+  name: KION Group AG
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: TER
+  local_code: TER
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: Teradyne Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: OCDO LN
+  local_code: OCDO
+  exchange_mic: XLON
+  currency: GBP
+  country: GB
+  name: Ocado Group PLC
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable
+- display_ticker: GXO
+  local_code: GXO
+  exchange_mic: null
+  currency: USD
+  country: US
+  name: GXO Logistics Inc
+  isin: null
+  data_source: null
+  source_symbol: null
+  coverage_status: unavailable

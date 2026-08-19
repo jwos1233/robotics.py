@@ -33,18 +33,23 @@ What is settled (given, not re-derived):
 
   * AGGREGATE ROWS ARE MIXED INTO THE SAME RESPONSE. See is_country_code().
 
-  * THE UNIT VALUE IS DOMINATED BY PRODUCT MIX, not price. Across origins in
-    a single month it spans USD 0.45/unit (Poland, 172,800 units) to
-    USD 6,374/unit (Czech Republic, 7 units) -- a 14,000x spread. The line
-    plainly carries both commodity ball screws and large specialist screws
-    under one code.
+  * THE UNIT VALUE IS NOT USABLE AS A PRICE SERIES -- not blended, and not
+    per-origin either. Two separate defects, both confirmed against real data.
 
-    So a blended ASP over this line is not a price signal and must not be
-    published as one. What IS coherent is a per-origin series within the
-    precision band: Japan USD 242, Taiwan USD 242, Italy USD 201, Germany
-    USD 178 cluster tightly, while Poland, Canada and Switzerland sit two to
-    three orders of magnitude below and are evidently a different product.
-    Even within one origin, a mix shift moves the number with no price change.
+    Cross-sectionally, one month spans USD 0.45/unit (Poland, 172,800 units)
+    to USD 6,374/unit (Czech Republic, 7 units), a 14,000x spread: the line
+    carries commodity ball screws and large specialist screws under one code.
+
+    Over time it is worse. A single month's figures appeared to show a
+    coherent "precision band" -- Japan 242, Taiwan 242, Italy 201, Germany
+    178 -- but 42 months of history destroys that reading. Annual mean
+    unit value for Japan runs 41, 81, 241, 397 across 2023-2026, and for
+    Italy 2,803, 3,031, 3,520, 1,318. Those are not price movements; Japanese
+    roller screws did not appreciate tenfold. The apparent clustering in any
+    one month is coincidence, and mix churns faster than any signal.
+
+    Use value, and use origin shares of value. Do not publish a unit value
+    from this line as a price.
 
 Still open:
   1. Whether to measure on the general-imports (GEN_*) or
@@ -73,7 +78,20 @@ from robotics_radar.ingest.base import (
 )
 from robotics_radar.models.enums import Cadence, FlowDirection
 
+QUANTITY_BREAK_NOTE = (
+    "STRUCTURAL BREAK IN REPORTED QUANTITY AT 2024-11. Backfilling 2023-01 "
+    "onward exposed a discontinuity: for Japan, monthly value held flat "
+    "(USD 3.56m -> 2.15m) while reported unit count collapsed from 66,421 to "
+    "4,796 in a single month, a 14x drop. No supply chain loses 93% of unit "
+    "volume while holding value steady, so this is a change in what filers "
+    "report as quantity on this line, not an economic event. "
+    "CONSEQUENCE: quantity and unit_value are NOT comparable across "
+    "2024-11 on any origin. Value is the only leg that survives the break "
+    "intact. Do not compute a unit-value trend spanning it."
+)
+
 KNOWN_LIMITATIONS = (
+    QUANTITY_BREAK_NOTE + " "
     "Destination-side measurement. EU and US imports together miss intra-Asia "
     "flow entirely, and Chinese domestic consumption is invisible. If humanoid "
     "assembly concentrates in China, this measures the wrong basin. It is a "

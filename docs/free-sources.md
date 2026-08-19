@@ -34,6 +34,55 @@ three would fail from Railway too, since it is also cloud infrastructure.
 | **Stooq** | JavaScript browser-verification challenge instead of CSV |
 | **China NBS** | HTTP 403 echoing the client IP — IP-level block |
 
+## Exchange-native APIs: mostly unreachable from here
+
+Tested for a per-exchange strategy. Only Taiwan is currently reachable; the
+rest are blocked by this environment's network allowlist, not by the venues
+themselves, so they remain untested rather than ruled out.
+
+| Host | Market | Status |
+|---|---|---|
+| `openapi.twse.com.tw` | Taiwan | **Reachable, keyless, working** |
+| `api.twelvedata.com` | multi-market | Reachable; demo key works for US only, needs a free key |
+| `api.jquants.com` | Japan (JPX official) | blocked by allowlist — untested |
+| `push2his.eastmoney.com` | China A / HK | blocked by allowlist — untested |
+| `hq.sinajs.cn` | China A | blocked by allowlist — untested |
+| `data.krx.co.kr` | Korea | blocked by allowlist — untested |
+| `www.hkex.com.hk` | Hong Kong | blocked by allowlist — untested |
+| `www.alphavantage.co`, `finnhub.io` | multi-market | blocked by allowlist — untested |
+| `data.sec.gov` | US filings | blocked by allowlist — untested |
+
+## TWSE gives more than prices
+
+The Taiwan OpenAPI exposes 143 endpoints. Two matter here:
+
+- `/exchangeReport/STOCK_DAY_ALL` — daily closes for every listed stock.
+  Appears to be a **same-day snapshot**: no historical endpoint exists in the
+  spec, so price history accumulates forward and cannot be backfilled.
+- `/opendata/t187ap05_L` — **monthly revenue filings**, 1,085 companies, with
+  month-on-month and year-on-year changes already computed.
+
+The revenue feed is arguably the more valuable of the two, and it is a
+CONSTRAINT-side signal rather than an equity one. Taiwanese listed companies
+must file monthly revenue within 10 days of month-end, so for a name whose
+business *is* the constraint, revenue is a direct fundamental read where the
+share price is only a sentiment proxy.
+
+The clearest case is **Hiwin (2049)**, one of the few listed pure-plays in
+ball screws and linear guides. Its monthly revenue is a direct read on linear
+motion demand:
+
+| company | monthly revenue (TWD k) | YoY |
+|---|---|---|
+| Hiwin | 2,681,646 | +33.9% |
+| Delta Electronics | 67,073,192 | +47.7% |
+| Yageo | 16,131,188 | +51.5% |
+| Nuvoton | 2,566,187 | +7.9% |
+
+This belongs on the constraint side with `evidence_grade='disclosed'`, feeding
+the Bearings & Linear Motion node — not in a basket. It is free, keyless and
+monthly, which matches the board's cadence exactly.
+
 ## Promising, unresolved
 
 - **PRODCOM** (`DS-059367`, `DS-059368`, same Comext API): EU *production* by

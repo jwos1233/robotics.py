@@ -101,14 +101,14 @@ opened. Findings below are **live-verified** unless marked otherwise.
 |---|---|---|
 | 1 | US Census imports | **VERIFIED with real data.** Key required. Piece counts. Aggregate rows mixed in. |
 | 2 | Eurostat Comext | **VERIFIED.** Keyless, SDMX 2.1. **No supplementary unit — weight only.** |
-| 3 | TARIC cycloid gear provision | not yet checked |
-| 4 | Japan export statistical codes | not yet checked |
+| 3 | TARIC cycloid gear provision | **RESOLVED: duty only.** Comext has no TARIC-level dataset. |
+| 4 | Japan export statistical codes | **RESOLVED: deprioritise.** No ball/roller screw code exists. |
 | 5 | JMTBA monthly breakdown | **VERIFIED.** Machine-type orders are a paid product; free monthly data gives NC grinding *production*. |
 | 6 | e-Stat / METI `statsDataId`s | not yet checked — needs `ESTAT_APP_ID` |
-| 7 | China NBS easyquery | not yet checked |
+| 7 | China NBS easyquery | **BLOCKED.** HTTP 403, IP-level block at the NBS end. |
 | 8 | Equity price coverage | **Stooq ruled out** (blocks automated access). Others need accounts. |
 | 9 | FX to USD | **VERIFIED.** ECB keyless SDMX covers 11 of 12. **TWD not published.** |
-| 10 | ACWI / URTH benchmark | not yet checked |
+| 10 | ACWI / URTH benchmark | blocked behind item 8 — no reachable free source found |
 
 ### The two findings that change the design
 
@@ -128,6 +128,20 @@ the 受注確報 monthly package by email at JPY 20,000/year. What is free and
 monthly is NC grinding machine *production* from the 主要統計 PDF, which is a
 coincident read on output rather than a forward read on capacity being
 ordered, and there is no gear-cutting split in the free data at all.
+
+### Japan exports add nothing for screws — but may for reducers
+
+Japan's export statistical subdivisions under 8483.40 are `-100` CVTs,
+`-200` gears, `-300` gear transmissions and `-900` other. Ball screws and
+roller screws are named in the heading but have **no code of their own**;
+they fall into `-900` "other". The exporter side is therefore *coarser* than
+the US import side for this node, and item 4 is deprioritised as the brief
+anticipated.
+
+Worth noting for a different node: `-300` 歯車伝動機 (gear transmissions) is a
+separate line reported in both units and kilograms, which is a plausible
+instrument for **Precision Reducers** — the node Nabtesco and Harmonic Drive
+sit in. Not yet evaluated.
 
 ### The TWD gap
 

@@ -2,9 +2,15 @@
 
 STATUS: NOT IMPLEMENTED.
 
-Unresolved: whether the data.stats.gov.cn easyquery endpoint is usable and
-stable enough to depend on, or whether this needs HTML scraping with a
-fallback path. Neither could be tested (host unreachable).
+RESOLVED, unfavourably. data.stats.gov.cn answers with HTTP 403 Forbidden
+and echoes the calling client IP, with or without a browser User-Agent. This
+is an IP-level block at the NBS end, not a proxy or scraping problem, so
+neither the easyquery endpoint nor an HTML-scrape fallback will work from
+ordinary cloud infrastructure.
+
+Options, none of them free: route through a China-resident egress, buy the
+series from a commercial redistributor (CEIC, Wind), or substitute a
+different demand-side indicator. Scraping harder will not help.
 
 Note on interpretation: NBS industrial robot output is a demand-side read, not
 a constraint. It exists so tightness elsewhere on the board can be judged

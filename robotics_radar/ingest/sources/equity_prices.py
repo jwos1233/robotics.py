@@ -10,11 +10,12 @@ detail to settle later.
 
 PHASE 0 FINDINGS SO FAR.
 
-Stooq is NOT usable programmatically. Its CSV download endpoint returns an
-HTML page rather than CSV for every symbol tried -- US, Japan, Taiwan, Korea
-and China alike -- and then resets the connection outright under repeated
-requests. It rate-limits and blocks automated access, so it cannot back a
-daily pipeline regardless of its nominal coverage. Ruled out.
+Stooq is NOT usable programmatically. Its CSV download endpoint serves a
+JavaScript browser-verification challenge ("This site requires JavaScript to
+verify your browser") instead of CSV, for every symbol tried across the US,
+Japan, Taiwan, Korea and China, and resets the connection under repeated
+requests. A browser User-Agent does not help. Driving a headless browser to
+defeat a bot check daily is not a dependency worth taking. Ruled out.
 
 EODHD, Twelve Data and Tiingo remain unevaluated: each needs an account
 before coverage can be tested against the roster, and the question that

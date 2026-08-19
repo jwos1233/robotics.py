@@ -28,6 +28,22 @@ Verified live, keyless:
     A EUR/kg series also drifts with product mix -- a shift toward larger
     screws moves it with no price change at all.
 
+TARIC CYCLOID GEAR PROVISION -- RESOLVED, and the answer is no.
+  The provision for cycloid gear sets "of a kind used in robot arms" exists
+  for DUTY PURPOSES ONLY and carries no queryable trade volume. Verified two
+  ways: Comext accepts CN8 product codes (84834090 returns data) but rejects
+  a 10-digit TARIC code with an HTTP 400 fault, and the full Comext dataflow
+  list is 11 datasets whose finest product granularity is CN8. No TARIC-level
+  dataflow exists. It therefore cannot be promoted to a primary source, and
+  robot-arm cycloid gears stay invisible inside CN 8483.40.90 "other".
+
+OPPORTUNITY SPOTTED, not yet evaluated: the same API serves PRODCOM datasets
+(DS-059367 "Production vendue, exportations et importations par liste
+PRODCOM", DS-059368 "Production totale"). These are EU PRODUCTION statistics
+by product, which is a different and possibly better instrument for several
+constraint nodes than trade flow is. Worth a look before adding more customs
+series.
+
 Still open:
   1. Revision behaviour, so vintage_date is assigned correctly.
   2. Whether an EU-aggregate reporter is preferable to summing members.

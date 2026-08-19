@@ -106,7 +106,7 @@ opened. Findings below are **live-verified** unless marked otherwise.
 | 5 | JMTBA monthly breakdown | **VERIFIED.** Machine-type orders are a paid product; free monthly data gives NC grinding *production*. |
 | 6 | e-Stat / METI `statsDataId`s | not yet checked — needs `ESTAT_APP_ID` |
 | 7 | China NBS easyquery | **BLOCKED.** HTTP 403, IP-level block at the NBS end. |
-| 8 | Equity price coverage | **Stooq ruled out** (blocks automated access). Others need accounts. |
+| 8 | Equity price coverage | **Stooq and Yahoo both ruled out** (bot challenge / datacenter IP block). EODHD reachable, needs a plan. |
 | 9 | FX to USD | **VERIFIED.** ECB keyless SDMX covers 11 of 12. **TWD not published.** |
 | 10 | ACWI / URTH benchmark | blocked behind item 8 — no reachable free source found |
 
@@ -142,6 +142,21 @@ Worth noting for a different node: `-300` 歯車伝動機 (gear transmissions) i
 separate line reported in both units and kilograms, which is a plausible
 instrument for **Precision Reducers** — the node Nabtesco and Harmonic Drive
 sit in. Not yet evaluated.
+
+### Free equity sources are ruled out, on access rather than coverage
+
+Yahoo Finance would have solved everything — the full roster, ACWI, and the
+TWD gap — but it returns HTTP 429 to every request from a datacenter IP,
+including AAPL, with a browser User-Agent and the cookie/crumb handshake.
+**Railway is cloud infrastructure too**, so the scheduler would hit the same
+wall; this is not a sandbox artefact. Separately, the v8 endpoint is
+undocumented and Yahoo's terms do not permit automated collection for
+redistribution, which is a standing risk for a published product.
+
+Stooq serves a JavaScript browser-verification challenge. EODHD, by contrast,
+is reachable from here and its API shape is confirmed working on the public
+demo token, so it is the leading candidate and needs a paid plan to evaluate
+per-ticker.
 
 ### The TWD gap
 

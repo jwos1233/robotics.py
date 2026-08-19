@@ -17,12 +17,34 @@ Japan, Taiwan, Korea and China, and resets the connection under repeated
 requests. A browser User-Agent does not help. Driving a headless browser to
 defeat a bot check daily is not a dependency worth taking. Ruled out.
 
-EODHD, Twelve Data and Tiingo remain unevaluated: each needs an account
-before coverage can be tested against the roster, and the question that
-matters is not "does it list an exchange" but "does it return this specific
-ticker". No provider is wired in and no source_symbol is populated. Every
-security stays coverage_status='unavailable' and is excluded from basket
-pricing until a provider is confirmed FOR THAT SECURITY.
+Yahoo Finance is NOT viable, for two independent reasons.
+
+  1. It blocks datacenter IPs. Every request returns HTTP 429 "Too Many
+     Requests" -- on the first attempt, for AAPL, with a browser User-Agent,
+     and with the cookie/crumb handshake. This is not per-request throttling
+     we provoked; it is a block on cloud IP ranges. Railway is cloud
+     infrastructure too, so the production scheduler would hit the same wall.
+     A source that cannot run from a server cannot back a daily pipeline.
+  2. There is no official public API. The v8 chart endpoint is undocumented
+     and Yahoo's terms do not permit automated collection for redistribution.
+     For a research product intended to be published, that is a standing
+     risk independent of whether the block is ever lifted.
+
+  This is a shame purely on coverage: Yahoo is the only free source that
+  spans the whole roster plus ACWI and TWD=X. It does not matter, because it
+  cannot be reached from a server.
+
+EODHD is reachable from this infrastructure and its API shape is confirmed
+working -- the public demo token returns real OHLCV for AAPL.US. Non-US
+symbols return "Forbidden" only because the demo is limited to a handful of
+US tickers, not because of an IP block. It therefore remains the leading
+candidate and needs a paid plan to evaluate properly. Twelve Data and Tiingo
+are untested for the same reason.
+
+The question that matters is not "does the provider list the Taiwan exchange"
+but "does it return 2049 TT". No provider is wired in and no source_symbol is
+populated. Every security stays coverage_status='unavailable' and is excluded
+from basket pricing until a provider is confirmed FOR THAT SECURITY.
 
 FX: RESOLVED, with one gap. The ECB daily reference rate series
 (data-api.ecb.europa.eu, SDMX, keyless) covers JPY, CNY, HKD, KRW, SEK, CHF,

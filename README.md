@@ -125,9 +125,17 @@ Two consequences worth stating plainly:
 - **Item 5 is the most load-bearing series on the board.** If the machine-type
   split is annual-only, the cascade argument weakens substantially.
 
-To unblock, the environment's network policy needs to allow the source hosts;
-see `deploy/cron.md` and the fetcher docstrings, each of which records exactly
-what its source still needs.
+### Contributing Phase 0 evidence
+
+`tests/fixtures/README.md` lists exactly what each source needs, in priority
+order, with the capture commands where they are known. Save real payloads
+verbatim under `tests/fixtures/<source>/` and open a PR; parsers get written
+against them and their tests skip until the payload lands, so the gap stays
+visible rather than hidden.
+
+Alternatively, allowing the source hosts through the build environment's
+network policy lets Phase 0 be run directly. Each fetcher docstring records
+what its own source still needs.
 
 ## Schema notes
 

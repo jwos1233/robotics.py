@@ -1,8 +1,23 @@
 """US Census monthly imports, HTS 8483.40.8000 (ball or roller screws), by origin.
 
-STATUS: NOT IMPLEMENTED. Phase 0 verification could not run -- this session's
-network policy blocks api.census.gov -- so the request shape, the variable
-names and, critically, the quantity basis are unconfirmed.
+STATUS: NOT IMPLEMENTED, but Phase 0 has now VERIFIED this source live.
+
+Verified:
+  * Endpoint live: api.census.gov/data/timeseries/intltrade/imports/hs
+  * An API key IS required. Without one the API returns **HTTP 200 with an
+    HTML "Missing Key" page**, not a 4xx and not JSON. The fetcher must
+    content-type check and reject non-JSON rather than trusting the status
+    code -- this is the single most likely way to silently ingest garbage.
+  * variables.json is keyless. Confirmed names: GEN_VAL_MO, GEN_QY1_MO,
+    UNIT_QY1, CTY_CODE, CTY_NAME, I_COMMODITY, COMM_LVL, time. Also CON_*
+    (imports for consumption) alongside GEN_* (general imports), and
+    *_MO_FLAG true-zero flags that distinguish a real zero from a missing
+    value. Those flags must be read; treating a blank as zero would invent
+    data.
+  * QUANTITY BASIS RESOLVED: USITC HTS reports 8483.40.80.00 with
+    units = ["No."] -- a piece count. The US unit value is therefore
+    genuinely dollars per screw, not dollars per kilogram. This is the good
+    outcome and the series means what the board wants it to mean.
 
 What is settled (given, not re-derived):
   * US HTS 8483.40.8000 is "Ball or roller screws", confirmed live by CBP
@@ -12,18 +27,13 @@ What is settled (given, not re-derived):
   * The resolving line is on the import side, so this is measured by country
     of origin: one series per origin country, sharing a reporter.
 
-What Phase 0 must resolve before this is written:
-  1. The exact endpoint and whether CENSUS_API_KEY is required at this volume.
-  2. The variable names for value, quantity and quantity unit.
-  3. THE QUANTITY BASIS. If quantity on this line is reported by weight only,
-     the "unit value" is dollars per kilogram, not dollars per screw. That is
-     a materially weaker instrument -- it drifts with product mix -- and it
-     changes what the series means. It must be recorded in quantity_unit and
-     stated in the methodology note either way.
-  4. Whether general or consumption imports is the right basis, and whether
-     revisions arrive as restatements (which would need new vintages).
+Still open:
+  1. Whether to measure on the general-imports (GEN_*) or
+     imports-for-consumption (CON_*) basis. Both are published; they answer
+     different questions and must not be mixed within one series.
+  2. Revision behaviour, so vintage_date is assigned correctly.
 
-Until then this module raises rather than guessing an endpoint.
+Needs CENSUS_API_KEY before it can be written and tested end to end.
 """
 
 from __future__ import annotations
@@ -51,9 +61,9 @@ METHODOLOGY = (
     "Monthly US imports on HTS 8483.40.8000 (ball or roller screws) by country "
     "of origin. Unit value is value divided by reported quantity and stands in "
     "for a price series; robotics has no spot market, nothing rents and nothing "
-    "trades, so there is no roller screw print to reference. The quantity basis "
-    "for this line is UNVERIFIED: if quantity is reported by weight, the unit "
-    "value is $/kg and moves with product mix as well as price."
+    "trades, so there is no roller screw print to reference. Quantity on this "
+    "line is reported as a piece count (HTS unit of quantity 'No.'), so the "
+    "unit value is dollars per screw."
 )
 
 
@@ -79,9 +89,9 @@ class CensusImportsFetcher(Fetcher):
 
     def fetch(self, period: date) -> Iterable[RawResponse]:
         raise IngestError(
-            "us_census_imports: not implemented. Phase 0 could not verify the "
-            "endpoint, variable names or quantity basis for HTS 8483.40.8000 "
-            "(api.census.gov unreachable from the build environment)."
+            "us_census_imports: not implemented. Endpoint and quantity basis are "
+            "verified; needs CENSUS_API_KEY and a decision on the general vs "
+            "consumption basis before it can be written."
         )
 
     def normalise(self, raw: RawResponse) -> Iterable[NormalisedObservation]:

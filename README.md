@@ -94,36 +94,46 @@ These are omissions, not gaps:
 
 ## Phase 0: what is verified, and what is not
 
-Phase 0 **could not run**. This build environment's network policy blocks all
-outbound HTTPS except GitHub and package registries; every data host
-(`api.census.gov`, `ec.europa.eu`, `jmtba.or.jp`, `data.stats.gov.cn`,
-`stooq.com`, and the rest) fails at CONNECT with a 403 from the egress proxy.
-WebSearch was the only working channel and returns summaries, not payloads.
-
-**No API call was made against any source.** Nothing below is live-verified.
+Phase 0 ran on 2026-08-19 once the build environment's network policy was
+opened. Findings below are **live-verified** unless marked otherwise.
 
 | # | Item | Status |
 |---|---|---|
-| 1 | US Census imports | Endpoint documented. **Quantity basis for HTS 8483.40.8000 UNRESOLVED.** |
-| 2 | Eurostat Comext | `DS-045409`, CN8 monthly, keyless — documented only. **Supplementary unit for CN 8483.40.30 UNRESOLVED.** |
-| 3 | TARIC cycloid gear provision | **UNRESOLVED** — cannot tell whether it carries queryable volume |
-| 4 | Japan export statistical codes | **UNRESOLVED** |
-| 5 | JMTBA monthly breakdown | **UNCONFIRMED** — search suggests the monthly release carries the machine-type split, but not from the file itself |
-| 6 | e-Stat / METI `statsDataId`s | **UNRESOLVED** — not guessed |
-| 7 | China NBS easyquery | **UNRESOLVED** |
-| 8 | Equity price coverage | **UNRESOLVED** — the per-ticker unavailable list could not be produced |
-| 9 | FX to USD | **UNRESOLVED** |
-| 10 | ACWI / URTH benchmark | **UNRESOLVED** |
+| 1 | US Census imports | **VERIFIED.** Endpoint live. API key required. Quantity is a piece count. |
+| 2 | Eurostat Comext | **VERIFIED.** Keyless, SDMX 2.1. **No supplementary unit — weight only.** |
+| 3 | TARIC cycloid gear provision | not yet checked |
+| 4 | Japan export statistical codes | not yet checked |
+| 5 | JMTBA monthly breakdown | **VERIFIED.** Machine-type orders are a paid product; free monthly data gives NC grinding *production*. |
+| 6 | e-Stat / METI `statsDataId`s | not yet checked — needs `ESTAT_APP_ID` |
+| 7 | China NBS easyquery | not yet checked |
+| 8 | Equity price coverage | not yet checked |
+| 9 | FX to USD | not yet checked |
+| 10 | ACWI / URTH benchmark | not yet checked |
 
-Two consequences worth stating plainly:
+### The two findings that change the design
 
-- **Items 1 and 2 are the same question twice.** If Census reports quantity by
-  weight only, and CN 8483.40.30 carries no supplementary unit, both "unit
-  value" series are $/kg rather than $/unit. That drifts with product mix and
-  is a materially weaker instrument than the design assumes. Settle this before
-  ingestion, not after.
-- **Item 5 is the most load-bearing series on the board.** If the machine-type
-  split is annual-only, the cascade argument weakens substantially.
+**The US and EU unit values are not the same measurement.** USITC reports
+HTS 8483.40.80.00 with unit of quantity `No.`, a piece count, so the US unit
+value is dollars per *screw*. Comext returns exactly two indicators for CN
+8483.40.30 — `QUANTITY_IN_100KG` and `VALUE_IN_EUROS` — with no supplementary
+unit, so the EU unit value can only be euros per *kilogram*. These must never
+be compared on level, shared on an axis, or averaged. The EU figure also
+drifts with product mix: a shift toward larger screws moves it with no price
+change at all. Cross-check the two jurisdictions on value and growth rate
+only.
+
+**The JMTBA machine-type order split is behind a paywall.** No free monthly
+release carries it — not the English NOTES, not the Japanese 確報. JMTBA sells
+the 受注確報 monthly package by email at JPY 20,000/year. What is free and
+monthly is NC grinding machine *production* from the 主要統計 PDF, which is a
+coincident read on output rather than a forward read on capacity being
+ordered, and there is no gear-cutting split in the free data at all.
+
+### One trap worth naming
+
+The Census API returns **HTTP 200 with an HTML "Missing Key" page** when the
+key is absent — not a 4xx, not JSON. Any fetcher that trusts the status code
+will ingest an HTML error page as data. The saved fixture pins this.
 
 ### Contributing Phase 0 evidence
 

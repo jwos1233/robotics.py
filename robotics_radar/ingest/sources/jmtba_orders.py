@@ -7,16 +7,35 @@ that machine-tool orders read capacity expansion one layer BELOW the visible
 constraint: grinding machines gate roller screw and reducer output, so
 grinding order intake leads actuation capacity.
 
-WHAT PHASE 0 COULD NOT SETTLE: whether the MONTHLY release carries the
-by-machine-type breakdown ("Grinding Machines", "Gear Cutting & Finishing
-Machines") or whether that split appears only in the annual statistics.
-Searching suggests the monthly release does carry a machine-type breakdown,
-but that came from a search summary rather than from the monthly file itself,
-so it is NOT confirmed. If the split turns out to be annual-only, the cascade
-argument weakens substantially and this node needs a different instrument.
+PHASE 0 RESOLVED THIS, and the answer is mixed.
 
-Also unresolved: file format and URL pattern, and whether order backlog and
-the machine-tool price index appear in the monthly release or only annually.
+The by-machine-type ORDER breakdown is NOT in any free monthly release:
+  * The English "JMTBA NOTES" monthly news release breaks orders down by
+    destination country and by customer industry only. No machine types.
+  * The Japanese monthly 確報 (kakuhou) PDF likewise carries no machine-type
+    split.
+  * JMTBA sells it. The 受注確報 monthly statistics package is distributed by
+    email on an annual contract at JPY 20,000/year (tax included) per
+    delivery address, as PDF. Contact: stat31@jmtba.or.jp. That is the only
+    route to monthly orders by machine type.
+
+What IS free and monthly, from the Japanese 主要統計 (syuyoutoukei) PDF:
+  * NC研削盤 -- NC grinding machine **PRODUCTION**, monthly, by value.
+    Production, not orders. It is a coincident read on grinding output rather
+    than a forward read on grinding capacity being bought, so it is a weaker
+    instrument for the cascade argument than order intake would be.
+  * No gear-cutting or gear-finishing split appears in the free data at all.
+
+URL patterns are IRREGULAR and must not be constructed:
+  * English: /english/wjmtbap/wp-content/uploads/YYYY/MM/JMTBA-NOTES-YYYY-MM.pdf
+    but 2024 files omit the YYYY/MM directory and at least one 2025 file uses
+    underscores instead of hyphens.
+  * Japanese: /wjmtbap/wp-content/uploads/YYYY/MM/{kakuhou,syuyoutoukei}YYMM.pdf
+    with the directory frequently not matching the reporting month.
+  The fetcher must scrape the index page and follow links.
+
+Order backlog (受注残) appears in the free Japanese releases. No machine-tool
+price index was found in them.
 """
 
 from __future__ import annotations

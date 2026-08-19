@@ -81,15 +81,20 @@ class NormalisedObservation:
     quantity_unit: str | None = None
     unit_value: float | None = None
     release_date: date | None = None
+    #: Set when a unit value would be arithmetically computable but not
+    #: interpretable -- e.g. an aggregate across origins whose product mix
+    #: makes the ratio meaningless. Keeps a misleading number out of the store.
+    suppress_unit_value: bool = False
 
     def with_unit_value(self) -> NormalisedObservation:
         """Derive unit value where both legs exist, else leave it None.
 
         A unit value is only meaningful when value and quantity are on the
         same tariff line for the same period. We never synthesise one from a
-        neighbouring period or a different quantity basis.
+        neighbouring period or a different quantity basis, and we decline to
+        compute one at all where the caller has marked it uninterpretable.
         """
-        if self.unit_value is not None:
+        if self.suppress_unit_value or self.unit_value is not None:
             return self
         if self.value is None or self.quantity in (None, 0):
             return self

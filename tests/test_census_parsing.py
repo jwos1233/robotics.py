@@ -88,3 +88,70 @@ class TestUnitValueDispersion:
             r = by_code[code]
             band.append(r["value"] / r["qty"])
         assert max(band) / min(band) < 2.0
+
+
+class TestNormalise:
+    """normalise() run against the verbatim 2026-06 response."""
+
+    @pytest.fixture(scope="module")
+    def observations(self, payload):
+        from datetime import UTC, datetime
+
+        from robotics_radar.ingest.base import RawResponse
+        from robotics_radar.ingest.sources.census_imports import CensusImportsFetcher
+
+        raw = RawResponse(
+            url="https://api.census.gov/data/timeseries/intltrade/imports/hs",
+            params={"time": "2026-06"},
+            body=json.dumps(payload),
+            fetched_at=datetime(2026, 8, 19, tzinfo=UTC),
+        )
+        fetcher = CensusImportsFetcher(api_key="test")
+        return [o.with_unit_value() for o in fetcher.normalise(raw)]
+
+    def test_emits_tracked_origins_and_the_aggregate(self, observations):
+        from robotics_radar.ingest.sources.census_imports import TRACKED_ORIGINS
+
+        assert len(observations) == len(TRACKED_ORIGINS) + 1
+
+    def test_period_bounds_cover_the_whole_month(self, observations):
+        from datetime import date
+
+        for o in observations:
+            assert o.period_start == date(2026, 6, 1)
+            assert o.period_end == date(2026, 6, 30)
+
+    def test_japan_matches_the_payload(self, observations, parsed):
+        japan = next(o for o in observations if o.series_key.endswith("from Japan"))
+        source = next(r for r in parsed if r["code"] == "5880")
+        assert japan.value == source["value"]
+        assert japan.quantity == source["qty"]
+        assert japan.quantity_unit == "NO"
+        assert japan.unit_value == pytest.approx(source["value"] / source["qty"])
+
+    def test_aggregate_carries_no_unit_value(self, observations):
+        """The whole point of suppress_unit_value: a mix ratio is not a price."""
+        agg = next(o for o in observations if o.series_key.endswith("all origins"))
+        assert agg.value == 13_482_077
+        assert agg.quantity == 626_176
+        assert agg.unit_value is None
+
+    def test_vintage_is_the_fetch_date_not_the_period(self, observations):
+        from datetime import date
+
+        assert {o.vintage_date for o in observations} == {date(2026, 8, 19)}
+        assert all(o.release_date is None for o in observations)
+
+    def test_rejects_a_response_with_no_country_rows(self):
+        from datetime import UTC, datetime
+
+        from robotics_radar.ingest.base import IngestError, RawResponse
+        from robotics_radar.ingest.sources.census_imports import CensusImportsFetcher
+
+        body = json.dumps([["CTY_CODE", "CTY_NAME", "GEN_VAL_MO", "GEN_QY1_MO",
+                            "UNIT_QY1", "GEN_QY1_MO_FLAG"],
+                           ["0022", "OECD", "1", "1", "NO", "-"]])
+        raw = RawResponse(url="u", params={"time": "2026-06"}, body=body,
+                          fetched_at=datetime(2026, 8, 19, tzinfo=UTC))
+        with pytest.raises(IngestError, match="no country rows"):
+            list(CensusImportsFetcher(api_key="t").normalise(raw))

@@ -12,8 +12,17 @@ import sys
 import structlog
 
 
+#: Loggers that emit full request URLs at INFO. Several source APIs take their
+#: credential as a query parameter -- Census is one -- so leaving these at INFO
+#: writes live API keys into stdout, which on Railway means into the log store.
+_URL_LOGGING_LIBRARIES = ("httpx", "httpcore", "urllib3")
+
+
 def configure_logging(level: str = "INFO") -> None:
     logging.basicConfig(format="%(message)s", stream=sys.stdout, level=level.upper())
+
+    for name in _URL_LOGGING_LIBRARIES:
+        logging.getLogger(name).setLevel(logging.WARNING)
     structlog.configure(
         processors=[
             structlog.contextvars.merge_contextvars,

@@ -42,7 +42,19 @@ def wait_for_database(
     retrying a configuration mistake only delays the useful error message.
     """
     settings = get_settings()
-    url = settings.sqlalchemy_url  # raises ConfigError when unset
+    url = settings.sqlalchemy_url  # raises ConfigError when nothing is configured
+    source = settings.database_url_source
+
+    if source == "DATABASE_PUBLIC_URL":
+        # Works, but routes over the public internet and is billed as egress.
+        log.warning(
+            "database_using_public_url",
+            detail=(
+                "Connected via DATABASE_PUBLIC_URL. This leaves the private "
+                "network and is billed as egress. Prefer a DATABASE_URL "
+                "reference to the Postgres service."
+            ),
+        )
 
     engine = create_engine(url, pool_pre_ping=True, future=True)
     last_error: Exception | None = None
@@ -51,7 +63,7 @@ def wait_for_database(
         try:
             with engine.connect() as conn:
                 conn.execute(text("SELECT 1"))
-            log.info("database_ready", attempt=attempt)
+            log.info("database_ready", attempt=attempt, source=source)
             return
         except SQLAlchemyError as exc:
             last_error = exc

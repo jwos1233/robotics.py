@@ -12,7 +12,9 @@ missing key fails loudly at call time rather than at import.
 
 from __future__ import annotations
 
+import os
 from functools import lru_cache
+from urllib.parse import quote
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -24,7 +26,19 @@ class ConfigError(RuntimeError):
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    # Primary. On Railway this is the private-network URL.
     database_url: str | None = None
+    # Railway also publishes a public URL. It works but routes over the public
+    # internet and is billed as egress, so it is only used if nothing else is
+    # available, and it says so when it is.
+    database_public_url: str | None = None
+    # Standard libpq parts. If the Postgres plugin is linked but DATABASE_URL
+    # was never referenced, these are usually what is actually present.
+    pghost: str | None = None
+    pgport: int | None = None
+    pguser: str | None = None
+    pgpassword: str | None = None
+    pgdatabase: str | None = None
 
     census_api_key: str | None = None
     comtrade_api_key: str | None = None
@@ -38,12 +52,39 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     app_env: str = "development"
 
+    def resolve_database_url(self) -> tuple[str, str]:
+        """Return (url, which-source-it-came-from).
+
+        Three accepted sources, in order of preference. All three are standard
+        ways a Postgres connection reaches a container, so honouring the
+        fallbacks turns several common Railway wiring mistakes into a working
+        deploy rather than a crash loop.
+        """
+        if self.database_url:
+            return self.database_url, "DATABASE_URL"
+
+        if self.pghost and self.pguser and self.pgdatabase:
+            port = self.pgport or 5432
+            password = f":{quote(self.pgpassword, safe='')}" if self.pgpassword else ""
+            url = (
+                f"postgresql://{quote(self.pguser, safe='')}{password}"
+                f"@{self.pghost}:{port}/{self.pgdatabase}"
+            )
+            return url, "PGHOST/PGUSER/PGDATABASE"
+
+        if self.database_public_url:
+            return self.database_public_url, "DATABASE_PUBLIC_URL"
+
+        raise ConfigError(missing_database_url_message())
+
+    @property
+    def database_url_source(self) -> str:
+        return self.resolve_database_url()[1]
+
     @property
     def sqlalchemy_url(self) -> str:
         """Normalise Railway's URL scheme to the psycopg v3 driver."""
-        url = self.database_url
-        if not url:
-            raise ConfigError(MISSING_DATABASE_URL)
+        url, _ = self.resolve_database_url()
         if url.startswith("postgres://"):
             url = url.replace("postgres://", "postgresql://", 1)
         if url.startswith("postgresql://"):
@@ -51,20 +92,63 @@ class Settings(BaseSettings):
         return url
 
 
-MISSING_DATABASE_URL = """DATABASE_URL is not set.
+DB_ENV_PREFIXES = ("DATABASE", "PG", "POSTGRES")
 
-The application cannot start without a database. On Railway this variable is
-NOT inherited automatically: adding the Postgres plugin exposes DATABASE_URL
-on the Postgres service only. Each service that needs it must reference it
-explicitly.
 
-  Railway -> your service -> Variables -> New Variable:
-      DATABASE_URL = ${{Postgres.DATABASE_URL}}
+def visible_database_env_vars() -> list[str]:
+    """Names (never values) of database-ish variables present in the process.
 
-(substituting the actual name of your Postgres service if it is not
-"Postgres"). Do this for BOTH the web service and the scheduler service.
+    This is the diagnostic that distinguishes "the Postgres service is not
+    linked to this service at all" from "it is linked but DATABASE_URL was
+    never referenced". Values are deliberately not printed: several of these
+    hold credentials.
+    """
+    return sorted(
+        name
+        for name in os.environ
+        if any(name.upper().startswith(prefix) for prefix in DB_ENV_PREFIXES)
+    )
 
-Locally, copy .env.example to .env and set DATABASE_URL there."""
+
+def missing_database_url_message() -> str:
+    seen = visible_database_env_vars()
+
+    if seen:
+        found = (
+            "Database-related variables that ARE visible to this service:\n"
+            + "\n".join(f"      {name}" for name in seen)
+            + "\n\n  So the Postgres service is reachable from here, but none of the\n"
+            "  three accepted forms is complete. This app accepts, in order:\n"
+            "      1. DATABASE_URL\n"
+            "      2. PGHOST + PGUSER + PGDATABASE (+ PGPORT, PGPASSWORD)\n"
+            "      3. DATABASE_PUBLIC_URL\n"
+        )
+    else:
+        found = (
+            "NO database-related variables are visible to this service at all\n"
+            "  (nothing starting with DATABASE, PG or POSTGRES).\n\n"
+            "  That means the Postgres service is not wired to this one -- check\n"
+            "  that a Postgres database actually exists in this project and in\n"
+            "  THIS environment, not just in another environment.\n"
+        )
+
+    return f"""No database connection is configured.
+
+  {found}
+  To fix, add a variable on THIS service (not on the Postgres service):
+
+      Railway -> select this service -> Variables -> New Variable
+          DATABASE_URL = ${{{{Postgres.DATABASE_URL}}}}
+
+  Replace "Postgres" with the exact name of your Postgres service as shown in
+  the Railway canvas. The reference resolves only within the same project and
+  environment, and a typo in the service name resolves to nothing rather than
+  raising, which looks exactly like this error.
+
+  Set it on BOTH the web service and the scheduler service -- each cron
+  invocation is a separate container and needs its own copy.
+
+  Locally: copy .env.example to .env and set DATABASE_URL there."""
 
 
 @lru_cache

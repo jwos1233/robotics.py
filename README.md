@@ -196,7 +196,14 @@ Set it on both `web` and `scheduler`. There is deliberately no default in
 "connection refused to 127.0.0.1" traceback from inside the driver, which
 reads like a broken database instead of a missing setting.
 
-The preflight step runs before migrations and separates the two cases — a
-missing variable exits 78 with the remedy printed, while a database that is
-simply not up yet is retried with backoff for roughly 40 seconds before
-exiting 75.
+Three connection shapes are accepted, in order: `DATABASE_URL`; then
+`PGHOST`/`PGUSER`/`PGDATABASE` (+ `PGPORT`, `PGPASSWORD`) composed into a URL;
+then `DATABASE_PUBLIC_URL`, which works but leaves the private network and is
+billed as egress, so preflight warns when it falls through to it.
+
+The preflight step runs before migrations and separates the failure cases — a
+missing configuration exits 78 after printing the database-related variable
+*names* it can see (never their values), which distinguishes "Postgres is not
+linked to this service" from "linked, but `DATABASE_URL` was never
+referenced". A database that is simply not up yet is retried with backoff for
+roughly 40 seconds before exiting 75.

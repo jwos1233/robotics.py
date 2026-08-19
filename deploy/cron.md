@@ -19,9 +19,23 @@ it explicitly, or the container starts, finds no database, and dies:
 Set it on **both** `web` and `scheduler`. Substitute the real Postgres service
 name if it is not `Postgres`.
 
-The preflight step in the start command checks this before migrations run. A
-missing variable exits 78 with the fix printed; a database that is merely not
-up yet is retried with backoff for about 40 seconds and then exits 75.
+If the reference does not resolve — a typo in the service name resolves to
+nothing rather than raising — the container sees no variable at all, which
+looks identical to never having set it.
+
+Three connection shapes are accepted, in order:
+
+1. `DATABASE_URL`
+2. `PGHOST` + `PGUSER` + `PGDATABASE` (+ `PGPORT`, `PGPASSWORD`), composed
+3. `DATABASE_PUBLIC_URL` — works, but leaves the private network and is billed
+   as egress, so preflight logs a warning when it falls through to this
+
+The preflight step runs before migrations and reports which source it used. If
+none is available it prints the database-related variable **names** it can see
+(never their values, several are credentials), which distinguishes "Postgres
+is not linked to this service at all" from "linked, but `DATABASE_URL` was
+never referenced". Missing config exits 78; a database that is merely not up
+yet is retried with backoff for about 40 seconds and then exits 75.
 
 `web` has the health check wired to `/health`. The scheduler service runs no
 long-lived process; each cron job is a one-shot invocation that exits.

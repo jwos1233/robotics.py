@@ -154,6 +154,32 @@ class BasketReturnOut(BaseModel):
     caveat_note: str | None = None
 
 
+class MetricPointOut(BaseModel):
+    period: date
+    value: float
+
+
+class MetricsResponse(BaseModel):
+    """Derived series for one instrument.
+
+    Every layer is computed from the observations, never configured, so two
+    callers cannot disagree about what a growth rate is.
+    """
+
+    series: SeriesOut
+    smoothing_window: int
+    level: list[MetricPointOut]
+    yoy_pct: list[MetricPointOut]
+    mom_pct: list[MetricPointOut]
+    acceleration: list[MetricPointOut] = Field(
+        description="Change in year-on-year growth, in percentage points. The inflection term."
+    )
+    yoy_z_score: list[MetricPointOut] = Field(
+        description="How unusual the growth rate is against this series' own prior history."
+    )
+    note: str
+
+
 class TripwireOut(BaseModel):
     """A falsifiable prediction, with its current verdict.
 

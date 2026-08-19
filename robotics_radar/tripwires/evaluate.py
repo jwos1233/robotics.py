@@ -25,6 +25,7 @@ from datetime import date
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from robotics_radar.analysis.derivatives import mom_pct, to_points, yoy_pct
 from robotics_radar.models.constraint import Observation, Tripwire
 from robotics_radar.models.enums import TripwireDirection, TripwireMetric, TripwireStatus
 
@@ -74,35 +75,18 @@ def metric_series(
 ) -> list[MetricPoint]:
     """Project observations onto the tripwire's metric.
 
-    Growth metrics compare against a specific earlier period rather than a
-    positional offset, so a gap in the series produces a missing comparison
-    instead of a silently wrong one.
+    Delegates to the shared derivative functions so tripwire grading and the
+    charted metrics can never drift apart -- a tripwire that trips on a number
+    the chart does not show would be worse than no tripwire.
     """
-    points = [
-        (o.period_start, float(o.value))
-        for o in observations
-        if o.value is not None
-    ]
+    points = to_points([(o.period_start, o.value) for o in observations])
     if metric is TripwireMetric.level:
-        return [MetricPoint(p, v) for p, v in points]
-
-    lookup = dict(points)
-    lag = 12 if metric is TripwireMetric.yoy_pct else 1
-    out: list[MetricPoint] = []
-    for period, value in points:
-        if lag == 12:
-            prior_key = date(period.year - 1, period.month, period.day)
-        else:
-            prior_key = (
-                date(period.year - 1, 12, period.day)
-                if period.month == 1
-                else date(period.year, period.month - 1, period.day)
-            )
-        prior = lookup.get(prior_key)
-        if prior in (None, 0):
-            continue
-        out.append(MetricPoint(period, (value - prior) / abs(prior) * 100.0))
-    return out
+        derived = points
+    elif metric is TripwireMetric.yoy_pct:
+        derived = yoy_pct(points)
+    else:
+        derived = mom_pct(points)
+    return [MetricPoint(p.period, p.value) for p in derived]
 
 
 def _qualifies(value: float, direction: TripwireDirection, threshold: float) -> bool:

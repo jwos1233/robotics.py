@@ -11,7 +11,6 @@ import sys
 
 import structlog
 
-
 #: Loggers that emit full request URLs at INFO. Several source APIs take their
 #: credential as a query parameter -- Census is one -- so leaving these at INFO
 #: writes live API keys into stdout, which on Railway means into the log store.

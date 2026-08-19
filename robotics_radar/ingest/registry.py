@@ -14,6 +14,7 @@ from robotics_radar.ingest.sources.comext_imports import ComextImportsFetcher
 from robotics_radar.ingest.sources.equity_prices import EquityPriceFetcher
 from robotics_radar.ingest.sources.jmtba_orders import JmtbaOrdersFetcher
 from robotics_radar.ingest.sources.nbs_robot_output import NbsRobotOutputFetcher
+from robotics_radar.ingest.sources.twse_revenue import TwseRevenueFetcher
 
 FETCHERS: dict[str, type[Fetcher]] = {
     "census": CensusImportsFetcher,
@@ -21,6 +22,7 @@ FETCHERS: dict[str, type[Fetcher]] = {
     "jmtba": JmtbaOrdersFetcher,
     "nbs": NbsRobotOutputFetcher,
     "equity": EquityPriceFetcher,
+    "twse_revenue": TwseRevenueFetcher,
 }
 
 

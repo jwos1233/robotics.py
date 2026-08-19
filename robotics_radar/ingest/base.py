@@ -27,7 +27,7 @@ from sqlalchemy.orm import Session
 
 from robotics_radar.logging import get_logger
 from robotics_radar.models.constraint import Observation, RawPayload
-from robotics_radar.models.enums import Cadence, FlowDirection
+from robotics_radar.models.enums import Cadence, EvidenceGrade, FlowDirection
 
 log = get_logger(__name__)
 
@@ -46,6 +46,9 @@ class SeriesSpec:
     cadence: Cadence
     flow_direction: FlowDirection
     geography: str
+    #: How directly this series is observed. Customs and statistical releases
+    #: are 'measured'; a figure a company reports about itself is 'disclosed'.
+    evidence_grade: EvidenceGrade = EvidenceGrade.measured
     partner_geography: str | None = None
     unit: str | None = None
     tariff_code: str | None = None

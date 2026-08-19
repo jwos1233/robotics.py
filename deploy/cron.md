@@ -50,6 +50,7 @@ All times UTC.
 | Comext imports | `0 14 17 * *` | `python -m robotics_radar.scheduler.run comext` |
 | JMTBA orders | `0 6 9 * *` | `python -m robotics_radar.scheduler.run jmtba` |
 | China NBS output | `0 6 18 * *` | `python -m robotics_radar.scheduler.run nbs` |
+| TWSE revenue | `0 4 12 * *` | `python -m robotics_radar.scheduler.run twse_revenue` |
 | Equity prices | `0 23 * * 1-5` | `python -m robotics_radar.scheduler.run equity` |
 
 ## The lags are provisional
@@ -67,6 +68,10 @@ checking against the real release calendar before it can be trusted:
 - **NBS** — mid-month, and note that China suppresses January/February
   monthly detail in favour of a combined print. The fetcher will need to
   handle that rather than record a gap.
+- **TWSE revenue** — Taiwanese filers have until the 10th of the following
+  month; the 12th leaves a margin. This one is **not optional to schedule**:
+  the endpoint serves only the latest filed month and has no historical
+  access, so a month missed is a month lost permanently.
 - **Equity** — 23:00 UTC is after the US close but *before* the next Asian
   open, which is the only window where every venue has a settled prior close.
   Confirm against each venue's calendar.

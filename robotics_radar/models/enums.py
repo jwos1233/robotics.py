@@ -37,10 +37,19 @@ class EvidenceGrade(StrEnum):
 
 
 class FlowDirection(StrEnum):
+    """What the series measures.
+
+    `revenue` is separate from `production` on purpose. Disclosed company
+    revenue is a financial figure covering whatever that company sells, not a
+    measured output volume, and conflating the two would let a currency or
+    price effect read as a capacity signal.
+    """
+
     import_ = "import"
     export = "export"
     production = "production"
     orders = "orders"
+    revenue = "revenue"
 
 
 class Cadence(StrEnum):

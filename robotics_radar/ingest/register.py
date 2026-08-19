@@ -15,7 +15,6 @@ from robotics_radar.ingest.base import SeriesSpec
 from robotics_radar.ingest.registry import FETCHERS
 from robotics_radar.logging import get_logger
 from robotics_radar.models.constraint import Node, Series
-from robotics_radar.models.enums import EvidenceGrade
 
 log = get_logger(__name__)
 
@@ -44,9 +43,9 @@ def register_spec(session: Session, spec: SeriesSpec) -> Series:
     series.source_url = spec.source_url
     series.cadence = spec.cadence
     series.unit = spec.unit
-    # Customs and order releases are primary statistical output, so anything
-    # registered here is 'measured'. A derived series would declare otherwise.
-    series.evidence_grade = EvidenceGrade.measured
+    # Declared by the source, not imposed here: a company reporting its own
+    # revenue is 'disclosed', a statistical agency's release is 'measured'.
+    series.evidence_grade = spec.evidence_grade
     series.tariff_code = spec.tariff_code
     series.tariff_nomenclature = spec.tariff_nomenclature
     series.flow_direction = spec.flow_direction

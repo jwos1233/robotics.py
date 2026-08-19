@@ -32,7 +32,8 @@ first-class field and travels with every basket number the API returns.
 
 ```bash
 uv venv --python 3.12 && uv pip install -e ".[dev]"
-cp .env.example .env          # set DATABASE_URL
+cp .env.example .env          # DATABASE_URL is REQUIRED; there is no default
+python -m robotics_radar.preflight    # verifies the database is configured and up
 alembic upgrade head
 python -m robotics_radar.seeds.load        # nodes, securities, baskets
 python -m robotics_radar.scheduler.run register   # series rows from fetcher specs
@@ -177,8 +178,25 @@ are NULL everywhere by design. The following still need a human check:
 
 ## Deployment
 
-Railway, two services from one repo. `web` runs migrations then uvicorn with
-the health check on `/health`; `scheduler` runs one cron job per source.
-Schedules and their (provisional) release-lag assumptions are in
-`deploy/cron.md`. `DATABASE_URL` comes from the Postgres plugin and is never
-hardcoded. Logging is structured JSON to stdout.
+Railway, two services from one repo. `web` runs preflight, then migrations,
+then uvicorn with the health check on `/health`; `scheduler` runs one cron job
+per source. Schedules and their (provisional) release-lag assumptions are in
+`deploy/cron.md`. Logging is structured JSON to stdout.
+
+### `DATABASE_URL` must be set on every service
+
+Adding the Postgres plugin exposes `DATABASE_URL` on the **Postgres service
+only**. It is not inherited. Each service needs its own reference:
+
+> Railway -> service -> Variables -> New Variable
+> `DATABASE_URL` = `${{Postgres.DATABASE_URL}}`
+
+Set it on both `web` and `scheduler`. There is deliberately no default in
+`config.py`: a localhost fallback would turn an unset variable into a
+"connection refused to 127.0.0.1" traceback from inside the driver, which
+reads like a broken database instead of a missing setting.
+
+The preflight step runs before migrations and separates the two cases — a
+missing variable exits 78 with the remedy printed, while a database that is
+simply not up yet is retried with backoff for roughly 40 seconds before
+exiting 75.

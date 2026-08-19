@@ -4,8 +4,24 @@ Two services share this repo:
 
 | Service | Start command |
 |---|---|
-| `web` | `alembic upgrade head && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT` |
+| `web` | `python -m robotics_radar.preflight && alembic upgrade head && uvicorn robotics_radar.api.main:app --host 0.0.0.0 --port $PORT` |
 | `scheduler` | one cron job per source, commands below |
+
+## Required variables (do this first)
+
+**`DATABASE_URL` is not inherited automatically.** Adding the Postgres plugin
+exposes it on the *Postgres service only*. Every other service must reference
+it explicitly, or the container starts, finds no database, and dies:
+
+> Railway -> service -> Variables -> New Variable
+> `DATABASE_URL` = `${{Postgres.DATABASE_URL}}`
+
+Set it on **both** `web` and `scheduler`. Substitute the real Postgres service
+name if it is not `Postgres`.
+
+The preflight step in the start command checks this before migrations run. A
+missing variable exits 78 with the fix printed; a database that is merely not
+up yet is retried with backoff for about 40 seconds and then exits 75.
 
 `web` has the health check wired to `/health`. The scheduler service runs no
 long-lived process; each cron job is a one-shot invocation that exits.

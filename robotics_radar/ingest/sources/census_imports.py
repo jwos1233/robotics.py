@@ -27,17 +27,35 @@ What is settled (given, not re-derived):
   * The resolving line is on the import side, so this is measured by country
     of origin: one series per origin country, sharing a reporter.
 
+  * Real data pulled for 2026-06: USD 13.48m across 626,176 units from 40
+    origins. Japan USD 2.66m, Switzerland USD 2.75m, Germany USD 2.62m,
+    Taiwan USD 0.61m, China USD 0.30m.
+
+  * AGGREGATE ROWS ARE MIXED INTO THE SAME RESPONSE. See is_country_code().
+
+  * THE UNIT VALUE IS DOMINATED BY PRODUCT MIX, not price. Across origins in
+    a single month it spans USD 0.45/unit (Poland, 172,800 units) to
+    USD 6,374/unit (Czech Republic, 7 units) -- a 14,000x spread. The line
+    plainly carries both commodity ball screws and large specialist screws
+    under one code.
+
+    So a blended ASP over this line is not a price signal and must not be
+    published as one. What IS coherent is a per-origin series within the
+    precision band: Japan USD 242, Taiwan USD 242, Italy USD 201, Germany
+    USD 178 cluster tightly, while Poland, Canada and Switzerland sit two to
+    three orders of magnitude below and are evidently a different product.
+    Even within one origin, a mix shift moves the number with no price change.
+
 Still open:
   1. Whether to measure on the general-imports (GEN_*) or
      imports-for-consumption (CON_*) basis. Both are published; they answer
      different questions and must not be mixed within one series.
   2. Revision behaviour, so vintage_date is assigned correctly.
-
-Needs CENSUS_API_KEY before it can be written and tested end to end.
 """
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable, Sequence
 from datetime import date
 
@@ -65,6 +83,20 @@ METHODOLOGY = (
     "line is reported as a piece count (HTS unit of quantity 'No.'), so the "
     "unit value is dollars per screw."
 )
+
+
+#: Census returns individual countries, economic groupings (0003 EU, 0022
+#: OECD, 0023 NATO...), continent aggregates (4XXX EUROPE) and a world total
+#: ('-') in the SAME response, undifferentiated. Summing the rows naively
+#: double-counts by roughly 3x. Verified against the 2026-06 fixture: the 40
+#: rows matching this pattern reconcile exactly to the TOTAL row on both value
+#: and quantity, while the other 20 rows are aggregates of them.
+_COUNTRY_CODE = re.compile(r"\d{4}")
+
+
+def is_country_code(code: str) -> bool:
+    """True for an individual country, False for any aggregate row."""
+    return bool(_COUNTRY_CODE.fullmatch(code)) and not code.startswith("00")
 
 
 class CensusImportsFetcher(Fetcher):

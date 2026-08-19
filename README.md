@@ -99,7 +99,7 @@ opened. Findings below are **live-verified** unless marked otherwise.
 
 | # | Item | Status |
 |---|---|---|
-| 1 | US Census imports | **VERIFIED.** Endpoint live. API key required. Quantity is a piece count. |
+| 1 | US Census imports | **VERIFIED with real data.** Key required. Piece counts. Aggregate rows mixed in. |
 | 2 | Eurostat Comext | **VERIFIED.** Keyless, SDMX 2.1. **No supplementary unit — weight only.** |
 | 3 | TARIC cycloid gear provision | not yet checked |
 | 4 | Japan export statistical codes | not yet checked |
@@ -137,10 +137,33 @@ baskets depend on it. Until a second FX source covers TWD, those names count
 as unpriced rather than being carried at a guessed rate — which also drags
 those baskets' `constituents_priced` ratio down, visibly, by design.
 
-### One trap worth naming
+### The unit value is a mix indicator, not a price
 
-The Census API returns **HTTP 200 with an HTML "Missing Key" page** when the
-key is absent — not a 4xx, not JSON. Any fetcher that trusts the status code
+Getting a piece count was the good outcome, but it is not sufficient. In a
+single month, unit value across origins on HTS 8483.40.8000 spans **$0.45/unit
+(Poland, 172,800 units) to $6,374/unit (Czech Republic, 7 units)** — a
+14,000x spread. The line plainly carries commodity ball screws and large
+specialist screws under one code.
+
+A blended ASP over this line is therefore **not a price signal and must not be
+published as one**. What is coherent is a per-origin series inside the
+precision band, where Japan ($242), Taiwan ($242), Italy ($201) and Germany
+($178) cluster within a factor of two, while Poland, Canada and Switzerland
+sit two to three orders of magnitude below and are evidently a different
+product. Even within one origin, a mix shift moves the number with no price
+change at all.
+
+### Two traps worth naming
+
+**Aggregates are mixed into the country rows.** A single Census response
+carries individual countries, economic groupings (EU, OECD, NATO, APEC),
+continent aggregates (`4XXX EUROPE`) and a world total (`-`) with nothing
+distinguishing them. Summing naively roughly triples the true figure. The
+filter is pinned by a test that reconciles the 40 country rows exactly against
+the TOTAL row.
+
+**The Census API returns HTTP 200 with an HTML error page** when the key is
+absent or inactive — not a 4xx, not JSON. Any fetcher that trusts the status code
 will ingest an HTML error page as data. The saved fixture pins this.
 
 ### Contributing Phase 0 evidence
